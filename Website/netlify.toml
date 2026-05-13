@@ -1,0 +1,9 @@
+# GymGO Website - Netlify Configuration
+[build]
+  # Vite build komanda
+  command = "npm run build"
+  # Vite uvek izbacuje fajlove u dist folder
+  publish = "dist"
+
+[functions]
+  directory = "netlify/functions"

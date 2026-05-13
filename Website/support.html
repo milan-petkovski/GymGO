@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support | GymGo</title>
+  <meta name="description" content="GymGo is a powerful mobile fitness tracker. Log workouts, track nutrition, connect with trainers, and crush your fitness goals with AI-powered coaching.">
+  <meta name="theme-color" content="#FF5722">
+  <link rel="icon" type="image/png" href="/images/logotrans.png">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .support-hero { padding: 160px 48px 80px; text-align: center; }
+    .support-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; max-width: 1200px; margin: 0 auto 80px; }
+    .support-card { background: var(--white); padding: 40px; border-radius: 24px; border: 1px solid var(--border); text-align: center; transition: all .3s ease; text-decoration: none; color: inherit; cursor: pointer; }
+    .support-card:hover { transform: translateY(-8px); border-color: var(--primary); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+    .s-icon { width: 48px; height: 48px; background: var(--primary-light); color: var(--primary); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
+    
+    /* PRETTIER FORM */
+    .support-form-container { max-width: 800px; margin: 0 auto 120px; position: relative; }
+    .support-form { 
+      background: var(--white); padding: 60px; border-radius: 32px; 
+      border: 1px solid var(--border); 
+      box-shadow: 0 40px 80px rgba(0,0,0,0.06); 
+      scroll-margin-top: 120px;
+      position: relative; overflow: hidden;
+    }
+    .support-form::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px;
+      background: linear-gradient(90deg, var(--primary), #A855F7);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+    .form-group { margin-bottom: 24px; text-align: left; }
+    .form-group label { display: block; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; color: var(--black); opacity: 0.6; }
+    .form-group input, .form-group textarea { 
+      width: 100%; padding: 18px 24px; border-radius: 16px; border: 1px solid var(--border); 
+      background: var(--surface); font-family: inherit; transition: all .3s cubic-bezier(.4,0,.2,1); 
+      font-size: 15px;
+    }
+    .form-group input:focus, .form-group textarea:focus { 
+      outline: none; border-color: var(--primary); background: var(--white); 
+      box-shadow: 0 10px 30px rgba(255,87,34,0.1); transform: translateY(-2px);
+    }
+    .btn-submit {
+      width: 100%; padding: 20px; border-radius: 16px; background: var(--black); color: var(--white);
+      font-weight: 800; letter-spacing: 2px; text-transform: uppercase; border: none; cursor: pointer;
+      transition: all .3s ease; display: flex; align-items: center; justify-content: center; gap: 12px;
+    }
+    .btn-submit:hover { background: var(--primary); transform: translateY(-3px); box-shadow: 0 20px 40px rgba(255,87,34,0.2); }
+
+    /* FLOATING CHAT WINDOW */
+    .chat-widget {
+      position: fixed; bottom: 100px; right: 30px;
+      width: 380px; height: 500px; background: var(--white);
+      border-radius: 24px; border: 1px solid var(--border);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+      z-index: 2000; display: none; flex-direction: column;
+      overflow: hidden; transform-origin: bottom right;
+    }
+    .chat-widget.active { display: flex; animation: chatPop .4s cubic-bezier(.175, .885, .32, 1.275); }
+    @keyframes chatPop { from { opacity: 0; transform: scale(0.8) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+    
+    .chat-header { background: var(--black); color: var(--white); padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; }
+    .chat-body { flex: 1; padding: 24px; background: var(--surface); overflow-y: auto; display: flex; flex-direction: column; gap: 16px; }
+    .chat-bubble { padding: 12px 16px; border-radius: 16px; font-size: 14px; max-width: 85%; line-height: 1.5; }
+    .chat-bubble.bot { background: var(--white); color: var(--black); align-self: flex-start; border-bottom-left-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+    .chat-input { padding: 20px; background: var(--white); border-top: 1px solid var(--border); display: flex; gap: 12px; }
+    .chat-input input { flex: 1; border: none; outline: none; font-size: 14px; }
+    
+    @media (max-width: 768px) { 
+      .support-grid { grid-template-columns: 1fr; padding: 0 24px; } 
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+      .support-form-container { padding: 0 20px; } /* Prevent edge-to-edge */
+      .support-form { padding: 40px 24px; }
+      .chat-widget { width: calc(100% - 40px); right: 20px; left: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="main-glows">
+    <div class="glow-blob glow-1"></div>
+    <div class="glow-blob glow-2"></div>
+    <div class="glow-blob glow-3"></div>
+    <div class="glow-blob glow-4"></div>
+  </div>
+
+  <nav class="nav" id="navbar">
+    <a href="/" class="nav-logo"><img src="/images/logo-hortrans.png" alt="GymGo"></a>
+    <div class="nav-links" id="navLinks">
+      <a href="/#features">Features</a>
+      <a href="/#tracking">Tracking</a>
+      <a href="/#premium">Premium</a>
+      <a href="/#download">Download</a>
+      <a href="/support.html">Support</a>
+    </div>
+    <a href="/#download" class="nav-cta">Get the App</a>
+    <button class="nav-hamburger" id="hamburgerBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="close-btn" id="closeMenu" aria-label="Close Menu">
+      <i data-lucide="x"></i>
+    </button>
+    <a href="/#features" class="mobile-link">Features</a>
+    <a href="/#tracking" class="mobile-link">Tracking</a>
+    <a href="/#premium" class="mobile-link">Premium</a>
+    <a href="/#download" class="mobile-link">Download</a>
+    <a href="/support.html" class="mobile-link">Support</a>
+    <a href="/#download" class="nav-cta mobile-link">Get the App</a>
+  </div>
+
+  <section class="support-hero">
+    <div class="section-tag">✦ Help Center</div>
+    <h1 class="section-title">How can we help?</h1>
+    <p class="section-desc" style="margin: 0 auto;">Our elite support team is here to ensure your fitness journey stays on track. 24/7 assistance for all athletes.</p>
+  </section>
+
+  <section class="support-grid">
+    <a href="#contact" class="support-card reveal">
+      <div class="s-icon"><i data-lucide="mail"></i></div>
+      <h3 class="reveal">Email Support</h3>
+      <p class="reveal">Direct line to our experts</p>
+    </a>
+    <div class="support-card reveal" id="triggerChat">
+      <div class="s-icon"><i data-lucide="message-square"></i></div>
+      <h3 class="reveal">Live Chat</h3>
+      <p class="reveal">Average response: 2 mins</p>
+    </div>
+    <a href="#faq" class="support-card reveal">
+      <div class="s-icon"><i data-lucide="help-circle"></i></div>
+      <h3 class="reveal">FAQ</h3>
+      <p class="reveal">Common answers & tips</p>
+    </a>
+  </section>
+
+  <div class="support-form-container" id="contact">
+    <div class="support-form reveal">
+      <h2 class="reveal" style="margin-bottom: 40px; font-family: 'Space Grotesk'; font-size: 32px;">Send us a message</h2>
+      <form action="mailto:contact@milanwebportal.com" method="post" enctype="text/plain">
+        <div class="form-row">
+          <div class="form-group reveal">
+            <label>Full Name</label>
+            <input type="text" name="name" placeholder="John Doe" required>
+          </div>
+          <div class="form-group reveal">
+            <label>Email Address</label>
+            <input type="email" name="email" placeholder="john@example.com" required>
+          </div>
+        </div>
+        <div class="form-group reveal">
+          <label>Inquiry Type</label>
+          <input type="text" name="subject" placeholder="e.g. Premium Access, AI Coaching Issue">
+        </div>
+        <div class="form-group reveal">
+          <label>Your Message</label>
+          <textarea name="message" rows="6" placeholder="Describe how we can help you today..." required></textarea>
+        </div>
+        <button type="submit" class="btn-submit reveal">Send Inquiry <i data-lucide="send"></i></button>
+      </form>
+    </div>
+  </div>
+
+  <section class="faq" id="faq">
+    <div class="faq-header reveal">
+      <div class="section-tag">✦ Common Questions</div>
+      <h2 class="section-title">Got Questions?</h2>
+      <p class="section-desc">Everything you need to know about the GymGo experience.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-q">Is GymGo free to use? <i data-lucide="plus"></i></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes! GymGo is completely free to download and use. The free tier includes full workout logging, nutrition tracking, hydration monitoring, and basic analytics.</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">What devices does GymGo support? <i data-lucide="plus"></i></button>
+        <div class="faq-a"><div class="faq-a-inner">GymGo is available on Android devices. It's built with React Native for native performance and integrates with Google Health Connect.</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">How does the AI Coach work? <i data-lucide="plus"></i></button>
+        <div class="faq-a"><div class="faq-a-inner">The AI Coach provides real-time voice guidance, form corrections, and adaptive difficulty based on your goals.</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">Can I connect with personal trainers? <i data-lucide="plus"></i></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes! GymGo has a built-in trainer marketplace where you can browse profiles and book certified professionals.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-info">
+        <img src="/images/logo-hortrans.png" alt="GymGo" class="footer-logo">
+        <p>The elite fitness companion for high-performance athletes. Precision tracking, AI coaching, and total nutrition control.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>App</h4>
+        <a href="/#features">Features</a>
+        <a href="/#tracking">Tracking</a>
+        <a href="/#premium">Premium</a>
+        <a href="/#download">Download</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms of Service</a>
+        <a href="/support.html">Support</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="https://www.instagram.com/gymgo.up/" target="_blank">Instagram</a>
+        <a href="https://milanwebportal.com" target="_blank">Website</a>
+        <a href="mailto:contact@milanwebportal.com">Email</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-inner">
+        <p>© 2026 GymGo. Designed & Developed by <a href="https://milanwebportal.com" target="_blank" style="display: inline; color: var(--primary);">milanwebportal.com</a></p>
+        <a href="#" id="backToTopLink">Back to Top <i data-lucide="chevron-up"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING CHAT WIDGET -->
+  <div class="chat-widget" id="chatWidget">
+    <div class="chat-header">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="width: 10px; height: 10px; background: #4ADE80; border-radius: 50%; box-shadow: 0 0 10px #4ADE80;"></div>
+        <span style="font-weight: 700; font-size: 14px; letter-spacing: 0.5px;">Live Support</span>
+      </div>
+      <div id="closeWidget" style="cursor: pointer; opacity: 0.7; transition: opacity 0.3s ease;">
+        <i data-lucide="X" style="width: 20px;"></i>
+      </div>
+    </div>
+    <div class="chat-body">
+      <div class="chat-bubble bot">Hello Athlete! 👋 How can our team help you today?</div>
+      <div class="chat-bubble bot">We typically respond in less than 2 minutes.</div>
+    </div>
+    <div class="chat-input">
+      <input type="text" placeholder="Type your message...">
+      <i data-lucide="send" style="color: var(--primary); cursor: pointer; width: 20px;"></i>
+    </div>
+  </div>
+
+  <div class="support-float" id="supportToggle" style="cursor: pointer;">
+    <i data-lucide="message-circle"></i>
+    <span>Support</span>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script type="module" src="/script.js"></script>
+</body>
+</html>

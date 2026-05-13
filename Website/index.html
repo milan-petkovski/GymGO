@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GymGo | Your Ultimate Fitness Companion</title>
+  <meta name="description" content="GymGo is a powerful mobile fitness tracker. Log workouts, track nutrition, connect with trainers, and crush your fitness goals with AI-powered coaching.">
+  <meta name="theme-color" content="#FF5722">
+  <link rel="icon" type="image/png" href="/images/logotrans.png">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <div class="main-glows">
+    <div class="glow-blob glow-1"></div>
+    <div class="glow-blob glow-2"></div>
+    <div class="glow-blob glow-3"></div>
+    <div class="glow-blob glow-4"></div>
+  </div>
+
+  <!-- PRELOADER -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-content">
+      <img src="images/logotrans.png" alt="GymGo" class="preloader-logo">
+      <div class="preloader-percent" id="preloaderPercent">0%</div>
+    </div>
+  </div>
+  <!-- NAVIGATION -->
+  <nav class="nav" id="navbar">
+    <a href="/" class="nav-logo"><img src="images/logo-hortrans.png" alt="GymGo"></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#features">Features</a>
+      <a href="#tracking">Tracking</a>
+      <a href="#premium">Premium</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#faq">FAQ</a>
+      <a href="support.html">Support</a>
+    </div>
+    <a href="https://play.google.com" class="nav-cta">Get the App</a>
+    <button class="nav-hamburger" id="hamburgerBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="close-btn" id="closeMenu" aria-label="Close Menu">
+      <i data-lucide="x"></i>
+    </button>
+    <a href="#features" class="mobile-link">Features</a>
+    <a href="#tracking" class="mobile-link">Tracking</a>
+    <a href="#premium" class="mobile-link">Premium</a>
+    <a href="#reviews" class="mobile-link">Reviews</a>
+    <a href="#faq" class="mobile-link">FAQ</a>
+    <a href="https://play.google.com" class="nav-cta mobile-link">Get the App</a>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="home">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-tag"><span class="dot"></span> Available Now on Android</div>
+        <h1>Train Smarter.<br><span class="highlight">Track Everything.</span></h1>
+        <p class="hero-desc">GymGo is the premium fitness companion that combines intelligent workout logging, nutrition tracking, and AI coaching, all wrapped in a beautiful distraction free interface.</p>
+        <div class="hero-actions">
+          <a href="https://play.google.com" class="btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Download Free
+          </a>
+          <a href="#features" class="btn-secondary">
+            Explore Features
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </a>
+        </div>
+        <div class="hero-highlights">
+          <div class="h-item">
+            <div class="h-icon"><i data-lucide="Dumbbell"></i></div>
+            <div class="h-text"><span>SMART</span>LOGGING</div>
+          </div>
+          <div class="h-divider"></div>
+          <div class="h-item">
+            <div class="h-icon"><i data-lucide="Mic"></i></div>
+            <div class="h-text"><span>AI</span>COACHING</div>
+          </div>
+          <div class="h-divider"></div>
+          <div class="h-item">
+            <div class="h-icon"><i data-lucide="Activity"></i></div>
+            <div class="h-text"><span>PRECISE</span>TRACKING</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-phone">
+        <img src="images/hero.png" alt="GymGo App Dashboard â€” Home Screen" id="heroPhone">
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="features-header">
+      <div class="section-tag">âœ¦ Core Features</div>
+      <h2 class="section-title">Everything You Need<br>to Dominate Your Goals</h2>
+      <p class="section-desc">Built by athletes, for athletes. Every feature is designed to eliminate friction and maximize your results.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-number">01</div>
+        <div class="feature-icon"><i data-lucide="dumbbell"></i></div>
+        <h3>Smart Workout Logging</h3>
+        <p>Track sets, reps, and weights with an intelligent interface. Auto-calculates volume and progression metrics.</p>
+        <a href="#tracking" class="feature-link">Learn More <i data-lucide="arrow-right"></i></a>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-number">02</div>
+        <div class="feature-icon"><i data-lucide="apple"></i></div>
+        <h3>Nutrition Tracker</h3>
+        <p>Log meals instantly with macro breakdowns. Monitor protein, carbs, and daily calorie goals with ease.</p>
+        <a href="#tracking" class="feature-link">Learn More <i data-lucide="arrow-right"></i></a>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-number">03</div>
+        <div class="feature-icon"><i data-lucide="line-chart"></i></div>
+        <h3>Progress Analytics</h3>
+        <p>Visualize your gains with detailed charts. Track body measurements and performance trends over time.</p>
+        <a href="#tracking" class="feature-link">Learn More <i data-lucide="arrow-right"></i></a>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-number">04</div>
+        <div class="feature-icon"><i data-lucide="mic"></i></div>
+        <h3>AI Voice Coach</h3>
+        <p>Get real-time AI-powered guidance during workouts. Personalized form cues and adaptive coaching.</p>
+        <a href="#tracking" class="feature-link">Learn More <i data-lucide="arrow-right"></i></a>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-number">05</div>
+        <div class="feature-icon"><i data-lucide="droplets"></i></div>
+        <h3>Hydration Tracking</h3>
+        <p>Never miss your water goals. Smart reminders and progress bars keep you properly hydrated.</p>
+        <a href="#tracking" class="feature-link">Learn More <i data-lucide="arrow-right"></i></a>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-number">06</div>
+        <div class="feature-icon"><i data-lucide="activity"></i></div>
+        <h3>Health Connect</h3>
+        <p>Seamlessly sync with Health Connect. Import steps, calories, and heart rate directly from your device.</p>
+        <a href="#tracking" class="feature-link">Learn More <i data-lucide="arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECH SHOWCASE BAND (THE BLACK SECTION) -->
+  <section class="app-preview">
+    <div class="app-preview-inner">
+      <div class="app-preview-content reveal">
+        <div class="section-tag" style="color: var(--primary);">âœ¦ Tech & Performance</div>
+        <h2 class="section-title" style="color: var(--white); margin-bottom: 24px;">Built for the Elite.</h2>
+        <p class="section-desc" style="color: rgba(255,255,255,0.6); margin: 0 auto 64px;">Every line of code is optimized for native speed, ensuring a fluid experience during your most intense sessions.</p>
+        
+        <div class="tech-grid">
+          <div class="tech-item">
+            <div class="tech-icon"><i data-lucide="zap"></i></div>
+            <h4>Native Speed</h4>
+            <p>React Native architecture for fluid 60fps interactions.</p>
+          </div>
+          <div class="tech-item">
+            <div class="tech-icon"><i data-lucide="shield-check"></i></div>
+            <h4>Privacy First</h4>
+            <p>End-to-end encrypted local data storage.</p>
+          </div>
+          <div class="tech-item">
+            <div class="tech-icon"><i data-lucide="refresh-cw"></i></div>
+            <h4>Live Sync</h4>
+            <p>Instant cloud backup across all your Android devices.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS MARQUEE -->
+  <div class="stats-band">
+    <div class="stats-marquee" id="marquee">
+      <div class="stat-item"><span>SMART LOGGING</span></div>
+      <span class="stat-dot">âœ¦</span>
+      <div class="stat-item"><span>AI COACHING</span></div>
+      <span class="stat-dot">âœ¦</span>
+      <div class="stat-item"><span>NUTRITION TRACKING</span></div>
+      <span class="stat-dot">âœ¦</span>
+      <div class="stat-item"><span>PRECISION ANALYTICS</span></div>
+      <span class="stat-dot">âœ¦</span>
+      <div class="stat-item"><span>HYDRATION GOALS</span></div>
+      <span class="stat-dot">âœ¦</span>
+      <div class="stat-item"><span>EXPERT GUIDANCE</span></div>
+      <span class="stat-dot">âœ¦</span>
+      <!-- Duplicate for seamless loop -->
+      <div class="stat-item"><span>SMART LOGGING</span></div>
+      <span class="stat-dot">âœ¦</span>
+      <div class="stat-item"><span>AI COACHING</span></div>
+      <span class="stat-dot">âœ¦</span>
+      <div class="stat-item"><span>NUTRITION TRACKING</span></div>
+      <span class="stat-dot">âœ¦</span>
+      <div class="stat-item"><span>PRECISION ANALYTICS</span></div>
+      <span class="stat-dot">âœ¦</span>
+      <div class="stat-item"><span>HYDRATION GOALS</span></div>
+      <span class="stat-dot">âœ¦</span>
+      <div class="stat-item"><span>EXPERT GUIDANCE</span></div>
+      <span class="stat-dot">âœ¦</span>
+    </div>
+  </div>
+
+  <!-- SHOWCASE: TRACKING -->
+  <section class="showcase" id="tracking">
+    <div class="showcase-grid">
+      <div class="showcase-img reveal">
+        <img src="images/workouts.png" alt="GymGo Workout Summary">
+      </div>
+      <div class="showcase-content reveal">
+        <div class="section-tag">âœ¦ Training Intelligence</div>
+        <h2 class="section-title">Track Every Rep.<br>Count Every Gain.</h2>
+        <p class="section-desc">GymGo eliminates the friction of workout logging. Start a session in one tap and focus on what matters: your performance.</p>
+        <ul class="showcase-list">
+          <li><div class="check"><i data-lucide="check-circle-2"></i></div> One-tap quick workout start</li>
+          <li><div class="check"><i data-lucide="check-circle-2"></i></div> Smart rest timer with feedback</li>
+          <li><div class="check"><i data-lucide="check-circle-2"></i></div> Volume load auto-calculation</li>
+          <li><div class="check"><i data-lucide="check-circle-2"></i></div> Workout history & streaks</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOWCASE: NUTRITION -->
+  <section class="showcase">
+    <div class="showcase-grid reverse">
+      <div class="showcase-img reveal">
+        <img src="images/activity.png" alt="GymGo Nutrition Tracker">
+      </div>
+      <div class="showcase-content reveal">
+        <div class="section-tag">âœ¦ Precision Nutrition</div>
+        <h2 class="section-title">Fuel Your Ambition.<br>Track Your Macros.</h2>
+        <p class="section-desc">Abs are made in the kitchen, but tracked in GymGo. Monitor your daily intake with a beautiful, intuitive interface.</p>
+        <ul class="showcase-list">
+          <li><div class="check"><i data-lucide="check-circle-2"></i></div> Detailed Macro Breakdown</li>
+          <li><div class="check"><i data-lucide="check-circle-2"></i></div> Calorie Budgeting System</li>
+          <li><div class="check"><i data-lucide="check-circle-2"></i></div> Meal History & Quick Add</li>
+          <li><div class="check"><i data-lucide="check-circle-2"></i></div> Hydration Goals Tracking</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOWCASE: TRAINERS -->
+  <section class="showcase">
+    <div class="showcase-grid">
+      <div class="showcase-img reveal">
+        <img src="images/logotrans.png" alt="Personal Trainers" style="max-width: 320px; opacity: 0.8;">
+      </div>
+      <div class="showcase-content reveal">
+        <div class="section-tag">âœ¦ Expert Guidance</div>
+        <h2 class="section-title">Train With<br>The Best.</h2>
+        <p class="section-desc">Connect with certified personal trainers directly through the app. Get personalized feedback and elite training programs.</p>
+        <ul class="showcase-list">
+          <li><div class="check"><i data-lucide="check-circle-2"></i></div> Verified trainer profiles</li>
+          <li><div class="check"><i data-lucide="check-circle-2"></i></div> In-app session booking</li>
+          <li><div class="check"><i data-lucide="check-circle-2"></i></div> Premium training programs</li>
+          <li><div class="check"><i data-lucide="check-circle-2"></i></div> Video-guided workouts</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREMIUM -->
+  <section class="premium" id="premium">
+    <div class="premium-header reveal">
+      <div class="section-tag">âœ¦ Go Pro</div>
+      <h2 class="section-title">Unlock Your<br>Full Potential</h2>
+      <p class="section-desc">Join the elite. Premium members get access to AI coaching, advanced analytics, and exclusive content.</p>
+    </div>
+    <div class="premium-grid">
+      <div class="premium-card reveal">
+        <div class="p-icon"><i data-lucide="mic"></i></div>
+        <h3>AI Voice Coach</h3>
+        <p>Real-time guidance for form & tempo during every set.</p>
+      </div>
+      <div class="premium-card reveal">
+        <div class="p-icon"><i data-lucide="bar-chart-3"></i></div>
+        <h3>Pro Analytics</h3>
+        <p>Volume trends, insights & progress forecasting.</p>
+      </div>
+      <div class="premium-card reveal">
+        <div class="p-icon"><i data-lucide="target"></i></div>
+        <h3>Custom Plans</h3>
+        <p>Tailored workout and nutrition plans for your goals.</p>
+      </div>
+      <div class="premium-card reveal">
+        <div class="p-icon"><i data-lucide="crown"></i></div>
+        <h3>Elite Workouts</h3>
+        <p>World-class routines from top-tier certified trainers.</p>
+      </div>
+      <div class="premium-card reveal">
+        <div class="p-icon"><i data-lucide="heart-pulse"></i></div>
+        <h3>Recovery Coach</h3>
+        <p>Guided stretches, mobility flows & rest day protocols.</p>
+      </div>
+      <div class="premium-card reveal">
+        <div class="p-icon"><i data-lucide="cloud"></i></div>
+        <h3>Cloud Sync</h3>
+        <p>Your data, backed up and synced across all devices.</p>
+      </div>
+    </div>
+    <div class="premium-footer reveal">
+      <a href="https://play.google.com" class="btn-primary">Get Premium Access <i data-lucide="arrow-right"></i></a>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials" id="reviews">
+    <div class="testimonials-header reveal">
+      <div class="section-tag">âœ¦ User Reviews</div>
+      <h2 class="section-title">Loved by Athletes<br>Worldwide</h2>
+      <p class="section-desc">Join thousands of users who have transformed their fitness journey with GymGo.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">
+          <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+        </div>
+        <p class="testimonial-text">"GymGo is exactly what I was looking for. It's clean, fast, and doesn't get in the way of my lifting. The PR tracking is addictive!"</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">AT</div>
+          <div><div class="testimonial-name">Alex Thompson</div><div class="testimonial-role">Powerlifter â€¢ 3 years</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">
+          <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+        </div>
+        <p class="testimonial-text">"The nutrition tracker changed my meal prep completely. Having macros calculated automatically is incredible. Lost 12kg in 4 months!"</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">SM</div>
+          <div><div class="testimonial-name">Sara Mitchell</div><div class="testimonial-role">Fitness Enthusiast</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">
+          <i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i>
+        </div>
+        <p class="testimonial-text">"The AI Coach corrected my squat form and helped me break through a 6-month plateau. Best investment in my fitness journey."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">MC</div>
+          <div><div class="testimonial-name">Marcus Chen</div><div class="testimonial-role">Bodybuilder â€¢ 5 years</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="faq-header reveal">
+      <div class="section-tag">âœ¦ Common Questions</div>
+      <h2 class="section-title">Got Questions?</h2>
+      <p class="section-desc">Everything you need to know about the GymGo experience.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-q">Is GymGo free to use? <i data-lucide="plus"></i></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes! GymGo is completely free to download and use. The free tier includes full workout logging, nutrition tracking, hydration monitoring, and basic analytics.</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">What devices does GymGo support? <i data-lucide="plus"></i></button>
+        <div class="faq-a"><div class="faq-a-inner">GymGo is available on Android devices. It's built with React Native for native performance and integrates with Google Health Connect.</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">How does the AI Coach work? <i data-lucide="plus"></i></button>
+        <div class="faq-a"><div class="faq-a-inner">The AI Coach provides real-time voice guidance, form corrections, and adaptive difficulty based on your goals.</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q">Can I connect with personal trainers? <i data-lucide="plus"></i></button>
+        <div class="faq-a"><div class="faq-a-inner">Yes! GymGo has a built-in trainer marketplace where you can browse profiles and book certified professionals.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD CTA -->
+  <section class="download" id="download">
+    <div class="glow"></div>
+    <div class="section-tag">âœ¦ Get Started Today</div>
+    <h2 class="section-title">Your Fitness Journey<br>Starts Now.</h2>
+    <p class="section-desc">Download GymGo for free and join thousands of athletes who are training smarter, eating better, and crushing their goals every single day.</p>
+    <div class="download-buttons">
+      <a href="https://play.google.com" class="store-btn" target="_blank" rel="noopener">
+        <svg class="store-icon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.302 2.302-2.302 2.302-2.764-2.302 2.764-2.302zM5.864 2.658L16.8 8.99l-2.302 2.302-8.635-8.635z"/></svg>
+        <div class="store-text">
+          <div class="store-label">Get it on</div>
+          <div class="store-name">Google Play</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+      <div class="footer-grid">
+        <div class="footer-info">
+          <img src="images/logo-hortrans.png" alt="GymGo" class="footer-logo">
+          <p>The elite fitness companion for high-performance athletes. Precision tracking, AI coaching, and total nutrition control.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>App</h4>
+          <a href="#features">Features</a>
+          <a href="#tracking">Tracking</a>
+          <a href="#premium">Premium</a>
+          <a href="https://play.google.com">Download</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+          <a href="support.html">Support</a>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <a href="https://www.instagram.com/gymgo.up" target="_blank">Instagram</a>
+          <a href="https://milanwebportal.com" target="_blank">Website</a>
+          <a href="mailto:contact@milanwebportal.com">Email</a>
+        </div>
+      </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-inner">
+        <p>Â© 2026 GymGo. Designed & Developed by <a href="https://milanwebportal.com" target="_blank" style="display: inline; color: var(--primary);">milanwebportal.com</a></p>
+        <a href="#" id="backToTopLink">Back to Top <i data-lucide="chevron-up"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING CHAT WIDGET -->
+  <div class="chat-widget" id="chatWidget">
+    <div class="chat-header">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="width: 10px; height: 10px; background: #4ADE80; border-radius: 50%; box-shadow: 0 0 10px #4ADE80;"></div>
+        <span style="font-weight: 700; font-size: 14px; letter-spacing: 0.5px;">Live Support</span>
+      </div>
+      <div id="closeWidget" style="cursor: pointer; opacity: 0.7; transition: opacity 0.3s ease;">
+        <i data-lucide="X" style="width: 20px;"></i>
+      </div>
+    </div>
+    <div class="chat-body">
+      <div class="chat-bubble bot">Hello Athlete! ðŸ‘‹ How can our team help you today?</div>
+      <div class="chat-bubble bot">We typically respond in less than 2 minutes.</div>
+    </div>
+    <div class="chat-input">
+      <input type="text" placeholder="Type your message...">
+      <i data-lucide="send" style="color: var(--primary); cursor: pointer; width: 20px;"></i>
+    </div>
+  </div>
+
+  <!-- SUPPORT FLOAT -->
+  <a href="javascript:void(0)" class="support-float" id="supportToggle" aria-label="Support">
+    <i data-lucide="message-circle"></i>
+    <span>Support</span>
+  </a>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+  <script type="module" src="/script.js"></script>
+</body>
+</html>
