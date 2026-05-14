@@ -1,31 +1,39 @@
 <div align="center">
-  <a href="https://milanwebportal.com">
-    <img src="https://milanwebportal.com/images/Projects/website21.jpg" alt="GymGo Hero" width="600" />
+  <a href="https://gymgo.milanwebportal.com">
+    <img src="https://milanwebportal.com/images/Projects/gymgo_special.png" alt="GymGo Hero" width="600" />
   </a>
-  <h1>GymGo - Mobile Fitness Tracker</h1>
-  <p>A powerful, modern mobile application for tracking workouts, nutrition, and health metrics.</p>
+  <h1>GymGo - Ultimate Fitness Evolution</h1>
+  <p>A premium, all-in-one fitness ecosystem designed to dominate your goals with precision tracking and high-performance analytics.</p>
 
   <h2>
-    <a href="https://milanwebportal.com">🌐 Project Overview</a>
+    <a href="https://gymgo.milanwebportal.com">🌐 Explore GymGo Website</a>
   </h2>
 
-  <p><b>📱 Platform:</b> iOS & Android (React Native) | <b>🚀 Backend:</b> Supabase</p>
+  <p><b>🚀 Performance Tier:</b> Ultra Optimized | Cross-Platform | Real-time Sync</p>
 
   <p><b>Tech Stack:</b></p>
   <img src="https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React Native">
   <img src="https://img.shields.io/badge/Expo-000020?style=for-the-badge&logo=expo&logoColor=white" alt="Expo">
   <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase">
   <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind">
+  <img src="https://img.shields.io/badge/Vite-8.0.13-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite 8">
 
-  <p>Manage your fitness journey with a clean, high-performance interface built for enthusiasts.</p>
+  <p><b>Platform Support:</b></p>
+  <img src="https://img.shields.io/badge/iOS-Coming_Soon-lightgrey?style=flat-square&logo=apple&logoColor=white" alt="iOS Coming Soon"> &nbsp;
+  <img src="https://img.shields.io/badge/Android-Coming_Soon-lightgrey?style=flat-square&logo=android&logoColor=white" alt="Android Coming Soon"> &nbsp;
+  <img src="https://img.shields.io/badge/Web-Live-4285F4?style=flat-square&logo=google-chrome&logoColor=white" alt="Web Live"> &nbsp;
+  
+  <p><i>Note: Mobile applications are currently in development and will be available soon.</i></p>
+  
+  <p>Eliminate friction and maximize results with a clean, high-performance interface built for elite athletes.</p>
 </div>
 
 <br>
 
 # ☕ The Story & Support
-Hi! I am Milan, a 19 year old student and web developer from Serbia. GymGo was created to simplify the way we track our fitness progress. Most apps are either too complex or filled with ads; I wanted something fast, beautiful, and functional.
+Hi! I am Milan, a 19 year old student and web developer from Serbia. GymGo was created to solve a personal frustration: most fitness apps are cluttered, slow, and filled with unnecessary friction. I wanted to build an ecosystem that feels premium, works instantly, and provides meaningful insights without the noise.
 
-I am committed to keeping my projects 100% free and open-source. If you find GymGo helpful for your workouts and want to support my late night coding sessions, you can buy me a coffee!
+I am committed to keeping my projects 100% free and open-source. If you find GymGo helpful for your fitness journey and want to support my late night coding sessions, you can buy me a coffee!
 
 💖 <a href="https://paypal.me/milanpetkovski1">Support my work via PayPal</a>
 
@@ -33,44 +41,36 @@ I am committed to keeping my projects 100% free and open-source. If you find Gym
 
 # 🚀 Key Features
 
-* 🏋️ **Workout Logging**: Easily track sets, reps, and weights for any exercise.
-* 🥗 **Nutrition Tracker**: Log daily meals and monitor calorie intake.
-* 📊 **Progress Analytics**: Visual charts and statistics to monitor your gains over time.
-* 🔐 **Supabase Auth**: Secure user authentication and data synchronization.
-* 📱 **Native Performance**: Built with the New Architecture for maximum speed and fluidity.
-* 🎨 **Modern UI**: Styled with NativeWind (Tailwind CSS) for a premium, consistent look.
-* 🔔 **Smart Notifications**: Reminders for workouts and meal logging.
-* 🏥 **Health Integration**: Ready for Health Connect and Apple Health (Experimental).
+* 🏋️ **Smart Workout Logging**: Track sets, reps, and weights with an intelligent, friction-free interface.
+* 🥗 **Precision Nutrition**: Comprehensive calorie budgeting and meal history with quick-add functionality.
+* 📊 **Pro Analytics**: Advanced volume trends, progress forecasting, and visual performance metrics.
+* 🔐 **Cloud Sync**: Secure, real-time data synchronization across all your devices via Supabase.
+* 📱 **Native Fluidity**: Built on the React Native New Architecture for 120Hz smooth interactions.
+* 🎨 **Awwwards Design**: A stunning, modern UI that follows a strict premium aesthetic.
+* ⏳ **Performance Focused**: Optimized builds with Vite 8 and Oxc for lightning-fast web experiences.
 
 <br>
 
-# 🛠️ Installation
+# 🛠️ Installation & Setup
 
-**Prerequisites:**
-- Node.js (v18+)
-- Expo Go (on your mobile device)
-- Android Studio / Xcode (for local simulation)
-
-**Steps:**
-1. Clone the repository:
+1. **Clone the repository**:
    ```bash
-   git clone https://github.com/milan-petkovski/GymGo.git
+   git clone https://github.com/milan-petkovski/GymGO.git
    ```
-2. Install dependencies:
+
+2. **Mobile App Setup**:
    ```bash
+   cd App
    npm install
-   ```
-3. Start the development server:
-   ```bash
    npx expo start
    ```
-4. Scan the QR code with your device or press `a` for Android / `i` for iOS.
 
-<br>
-
-# 📦 Android Build (Production)
-The production APK is located in:
-`android/app/build/outputs/apk/release/app-release.apk`
+3. **Website Setup**:
+   ```bash
+   cd Website
+   npm install
+   npm run dev
+   ```
 
 <br>
 
@@ -79,9 +79,9 @@ The production APK is located in:
 <table align="center" width="100%">
     <tr>
       <td align="center" colspan="2" width="100%">
-        <img src="https://milanwebportal.com/images/Projects/website21.jpg" alt="GymGo UI" />
+        <img src="https://milanwebportal.com/images/Projects/gymgo_special.png" alt="GymGo Premium Interface" />
         <br />
-        <b>Clean & Intuitive Dashboard</b>
+        <b>Premium UI/UX with High-Performance Performance Analytics</b>
       </td>
     </tr>
 </table>
@@ -89,6 +89,8 @@ The production APK is located in:
 <br>
 
 # 📬 Contact
+Official Project Website: <a href="https://gymgo.milanwebportal.com">gymgo.milanwebportal.com</a>
+
 Project Author: Milan Petkovski (Milan Web Portal)
 
 Author's Website: <a href="https://milanwebportal.com">milanwebportal.com</a>

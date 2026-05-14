@@ -3,6 +3,7 @@ import { resolve } from 'path';
 
 export default defineConfig({
   build: {
+    minify: 'oxc',
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
