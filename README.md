@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://gymgo.milanwebportal.com">
-    <img src="https://milanwebportal.com/images/Projects/gymgo_special.png" alt="GymGo Hero" width="600" />
+    <img src="https://milanwebportal.com/images/Projects/sgymgo.png" alt="GymGo Hero" width="600" />
   </a>
   <h1>GymGo - Ultimate Fitness Evolution</h1>
   <p>A premium, all-in-one fitness ecosystem designed to dominate your goals with precision tracking and high-performance analytics.</p>
@@ -79,7 +79,7 @@ I am committed to keeping my projects 100% free and open-source. If you find Gym
 <table align="center" width="100%">
     <tr>
       <td align="center" colspan="2" width="100%">
-        <img src="https://milanwebportal.com/images/Projects/gymgo_special.png" alt="GymGo Premium Interface" />
+        <img src="https://milanwebportal.com/images/Projects/sgymgo.png" alt="GymGo Premium Interface" />
         <br />
         <b>Premium UI/UX with High-Performance Performance Analytics</b>
       </td>
