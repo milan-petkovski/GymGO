@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -74,6 +74,27 @@
       .chat-widget { width: calc(100% - 40px); right: 20px; left: 20px; }
     }
   </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V7BCVH74J4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    
+    // Consent Mode v2
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'analytics_storage': 'granted',
+      'wait_for_update': 500
+    });
+
+    gtag('js', new Date());
+    gtag('config', 'G-V7BCVH74J4', {
+      'anonymize_ip': true,
+      'cookie_flags': 'SameSite=None;Secure'
+    });
+  </script>
 </head>
 <body>
   <div class="main-glows">
@@ -112,7 +133,7 @@
   </div>
 
   <section class="support-hero">
-    <div class="section-tag">✦ Help Center</div>
+    <div class="section-tag">âœ¦ Help Center</div>
     <h1 class="section-title">How can we help?</h1>
     <p class="section-desc" style="margin: 0 auto;">Our elite support team is here to ensure your fitness journey stays on track. 24/7 assistance for all athletes.</p>
   </section>
@@ -164,7 +185,7 @@
 
   <section class="faq" id="faq">
     <div class="faq-header reveal">
-      <div class="section-tag">✦ Common Questions</div>
+      <div class="section-tag">âœ¦ Common Questions</div>
       <h2 class="section-title">Got Questions?</h2>
       <p class="section-desc">Everything you need to know about the GymGo experience.</p>
     </div>
@@ -218,7 +239,7 @@
 
     <div class="footer-bottom">
       <div class="footer-bottom-inner">
-        <p>© 2026 GymGo. Designed & Developed by <a href="https://milanwebportal.com" target="_blank" style="display: inline; color: var(--primary);">milanwebportal.com</a></p>
+        <p>Â© 2026 GymGo. Designed & Developed by <a href="https://milanwebportal.com" target="_blank" style="display: inline; color: var(--primary);">milanwebportal.com</a></p>
         <a href="#" id="backToTopLink">Back to Top <i data-lucide="chevron-up"></i></a>
       </div>
     </div>
@@ -236,7 +257,7 @@
       </div>
     </div>
     <div class="chat-body">
-      <div class="chat-bubble bot">Hello Athlete! 👋 How can our team help you today?</div>
+      <div class="chat-bubble bot">Hello Athlete! ðŸ‘‹ How can our team help you today?</div>
       <div class="chat-bubble bot">We typically respond in less than 2 minutes.</div>
     </div>
     <div class="chat-input">
@@ -256,3 +277,4 @@
   <script type="module" src="/script.js"></script>
 </body>
 </html>
+

@@ -1,14 +1,14 @@
-import './input.css';
+﻿import './input.css';
 
-/* ═══════════════════════════════════════════
-   GymGo — AWWWARDS-LEVEL ANIMATION SYSTEM
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   GymGo â€” AWWWARDS-LEVEL ANIMATION SYSTEM
    Elite GSAP ScrollTrigger + Micro-interactions
-   ═══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-// ─── GLOBAL CONFIG ───
+// â”€â”€â”€ GLOBAL CONFIG â”€â”€â”€
 const EASE = {
   smooth: 'power3.out',
   elastic: 'elastic.out(1, 0.5)',
@@ -31,13 +31,13 @@ window.addEventListener('resize', () => {
   }
 }, { passive: true });
 
-// ─── PRELOADER ───
+// â”€â”€â”€ PRELOADER â”€â”€â”€
 window.addEventListener('load', () => {
   const preloader = document.getElementById('preloader');
   const logo = document.querySelector('.preloader-logo');
   const percentText = document.getElementById('preloaderPercent');
   
-  // ─── SET HERO ELEMENTS HIDDEN (only on pages with hero) ───
+  // â”€â”€â”€ SET HERO ELEMENTS HIDDEN (only on pages with hero) â”€â”€â”€
   const hasHero = document.querySelector('.hero');
   if (hasHero) {
     const heroTag = hasHero.querySelector('.hero-tag');
@@ -107,7 +107,7 @@ window.addEventListener('load', () => {
         // Wait for preloader fade-out, THEN reveal hero
         .add('heroStart', '+=0.5')
         
-        // ─── HERO REVEAL SEQUENCE ───
+        // â”€â”€â”€ HERO REVEAL SEQUENCE â”€â”€â”€
         .to('.hero-tag', { 
           opacity: 1, y: 0, 
           duration: 0.8, ease: EASE.smooth 
@@ -172,11 +172,11 @@ window.addEventListener('load', () => {
 });
 
 
-// ═══════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 // MASTER ANIMATION INITIALIZATION
-// ═══════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function initAllAnimations() {
-  // Clear CSS .reveal state — GSAP takes full control
+  // Clear CSS .reveal state â€” GSAP takes full control
   const reveals = document.querySelectorAll('.reveal');
   if (reveals.length > 0) {
     gsap.set(reveals, { opacity: 1, y: 0, scale: 1, clearProps: 'transform' });
@@ -206,9 +206,9 @@ function initAllAnimations() {
 }
 
 
-// ═══════════════════════════════════════════
-// 1. SECTION HEADERS — Elegant Split Reveal
-// ═══════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 1. SECTION HEADERS â€” Elegant Split Reveal
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function initSectionHeaders() {
   const headers = document.querySelectorAll('.features-header, .premium-header, .testimonials-header, .faq-header');
   
@@ -245,9 +245,9 @@ function initSectionHeaders() {
 }
 
 
-// ═══════════════════════════════════════════
-// 1.1 SUBPAGE HERO — Cinematic Entrance
-// ═══════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 1.1 SUBPAGE HERO â€” Cinematic Entrance
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function initSubpageHero() {
   const hero = document.querySelector('.support-hero, .legal-content');
   if (!hero) return;
@@ -277,9 +277,9 @@ function initSubpageHero() {
 }
 
 
-// ═══════════════════════════════════════════
-// 1.2 GENERIC REVEALS — For all remaining .reveal items
-// ═══════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 1.2 GENERIC REVEALS â€” For all remaining .reveal items
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function initGenericReveals() {
   // Select all .reveal that aren't already part of a complex timeline
   const items = document.querySelectorAll('.reveal:not(.section-tag):not(.section-title):not(.section-desc):not(.feature-card):not(.premium-card):not(.faq-item):not(.showcase-img):not(.showcase-content):not(.marquee-band)');
@@ -374,9 +374,9 @@ function initFeatureCards() {
 }
 
 
-// ═══════════════════════════════════════════
-// 3. SHOWCASE SECTIONS — Cinematic Split Reveals
-// ═══════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 3. SHOWCASE SECTIONS â€” Cinematic Split Reveals
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function initShowcaseSections() {
   document.querySelectorAll('.showcase').forEach(section => {
     const imgWrap = section.querySelector('.showcase-img');
@@ -447,9 +447,9 @@ function initShowcaseSections() {
 }
 
 
-// ═══════════════════════════════════════════
-// 4. TECH SECTION — Dramatic Dark Entry
-// ═══════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 4. TECH SECTION â€” Dramatic Dark Entry
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function initTechSection() {
   const section = document.querySelector('.app-preview');
   if (!section) return;
@@ -506,9 +506,9 @@ function initTechSection() {
 }
 
 
-// ═══════════════════════════════════════════
-// 4b. MARQUEE BAND — Scroll Triggered Entrance
-// ═══════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 4b. MARQUEE BAND â€” Scroll Triggered Entrance
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function initMarqueeBand() {
   const band = document.querySelector('.stats-band');
   if (!band) return;
@@ -530,9 +530,9 @@ function initMarqueeBand() {
 }
 
 
-// ═══════════════════════════════════════════
-// 5. PREMIUM CARDS — Luxury Cascade
-// ═══════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 5. PREMIUM CARDS â€” Luxury Cascade
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function initPremiumCards() {
   const grid = document.querySelector('.premium-grid');
   if (!grid) return;
@@ -602,9 +602,9 @@ function initPremiumCards() {
 }
 
 
-// ═══════════════════════════════════════════
-// 6. TESTIMONIALS — Smooth Card Fan
-// ═══════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 6. TESTIMONIALS â€” Smooth Card Fan
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function initTestimonials() {
   const grid = document.querySelector('.testimonials-grid');
   if (!grid) return;
@@ -661,9 +661,9 @@ function initTestimonials() {
 }
 
 
-// ═══════════════════════════════════════════
-// 7. FAQ — Accordion Slide with Spring
-// ═══════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 7. FAQ â€” Accordion Slide with Spring
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function initFAQ() {
   const items = document.querySelectorAll('.faq-item');
   
@@ -706,9 +706,9 @@ function initFAQ() {
 }
 
 
-// ═══════════════════════════════════════════
-// 8. DOWNLOAD CTA — Grand Reveal
-// ═══════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 8. DOWNLOAD CTA â€” Grand Reveal
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function initDownloadCTA() {
   const section = document.querySelector('.download');
   if (!section) return;
@@ -749,9 +749,9 @@ function initDownloadCTA() {
 }
 
 
-// ═══════════════════════════════════════════
-// 9. FOOTER — Elegant Rise
-// ═══════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 9. FOOTER â€” Elegant Rise
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function initFooter() {
   const footer = document.querySelector('.footer');
   if (!footer) return;
@@ -799,9 +799,9 @@ function initFooter() {
 }
 
 
-// ═══════════════════════════════════════════
-// 10. PARALLAX EFFECTS — Subtle Depth
-// ═══════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 10. PARALLAX EFFECTS â€” Subtle Depth
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function initParallaxEffects() {
   // Hero phone parallax
   const heroPhone = document.querySelector('.hero-phone');
@@ -865,9 +865,9 @@ function initParallaxEffects() {
 }
 
 
-// ═══════════════════════════════════════════
-// 11. NAVBAR — Smart Scroll Effects
-// ═══════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// 11. NAVBAR â€” Smart Scroll Effects
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function initNavbarEffects() {
   const navbar = document.getElementById('navbar') || document.querySelector('.nav');
   if (!navbar) return;
@@ -890,9 +890,9 @@ function initNavbarEffects() {
 }
 
 
-// ═══════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 // MOBILE MENU
-// ═══════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 const hamburgerBtn = document.getElementById('hamburgerBtn');
 const mobileMenu = document.getElementById('mobileMenu');
 const closeMenu = document.getElementById('closeMenu');
@@ -924,9 +924,9 @@ if (closeMenu && mobileMenu) {
 }
 
 
-// ═══════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 // SMOOTH SCROLL
-// ═══════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     const href = this.getAttribute('href');
@@ -955,9 +955,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 
-// ═══════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 // BACK TO TOP
-// ═══════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 const backToTopBtn = document.getElementById('backToTopLink');
 if (backToTopBtn) {
   window.addEventListener('scroll', () => {
@@ -971,9 +971,9 @@ if (backToTopBtn) {
 }
 
 
-// ═══════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 // CHAT WIDGET
-// ═══════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 const chatWidget = document.getElementById('chatWidget');
 const supportToggle = document.getElementById('supportToggle');
 const closeWidget = document.getElementById('closeWidget');
@@ -1006,3 +1006,76 @@ if (chatWidget) {
 if (typeof lucide !== 'undefined') {
   lucide.createIcons();
 }
+
+/* ═══════════════════════════════════════════
+   GA4 EVENT TRACKING SYSTEM
+   ═══════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Download Events
+    const downloadElements = document.querySelectorAll('a[href*="play.google.com"], .nav-cta, .btn-primary');
+    downloadElements.forEach(el => {
+        el.addEventListener('click', () => {
+            const location = el.closest('nav') ? 'navbar' : (el.closest('.hero') ? 'hero' : 'content');
+            gtag('event', 'download_click', {
+                'event_category': 'conversion',
+                'event_label': 'Google Play Store',
+                'location': location
+            });
+        });
+    });
+
+    // 2. Navigation & Feature Exploration
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', () => {
+            const target = link.getAttribute('href').substring(1);
+            gtag('event', 'navigation_click', {
+                'target_section': target
+            });
+        });
+    });
+
+    // 3. Support & Contact
+    const supportLink = document.querySelector('a[href="support.html"]');
+    if (supportLink) {
+        supportLink.addEventListener('click', () => {
+            gtag('event', 'support_visit', {
+                'event_category': 'engagement'
+            });
+        });
+    }
+
+    // 4. Feature Card Interactions
+    document.querySelectorAll('.feature-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const featureTitle = card.querySelector('h3')?.innerText || 'unknown_feature';
+            gtag('event', 'feature_view_detail', {
+                'feature_name': featureTitle
+            });
+        });
+    });
+    
+    // 5. Scroll Depth / Section Visibility (Key Milestones)
+    const observerOptions = { threshold: 0.5 };
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                gtag('event', 'section_view', {
+                    'section_name': entry.target.id || entry.target.className
+                });
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('section[id]').forEach(section => sectionObserver.observe(section));
+});
+    
+    // 6. Support Form Tracking
+    const supportForm = document.querySelector('.main-contact-form, .support-form');
+    if (supportForm) {
+        supportForm.addEventListener('submit', () => {
+            gtag('event', 'generate_lead', {
+                'event_category': 'conversion',
+                'event_label': 'Support Form Submit'
+            });
+        });
+    }
