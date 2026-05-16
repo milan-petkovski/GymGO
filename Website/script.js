@@ -1,14 +1,14 @@
 ﻿import './input.css';
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   GymGo â€” AWWWARDS-LEVEL ANIMATION SYSTEM
+/* ──────────────────────────────────────────────────────────────────
+   GymGo – AWWWARDS-LEVEL ANIMATION SYSTEM
    Elite GSAP ScrollTrigger + Micro-interactions
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ────────────────────────────────────────────────────────────────── */
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-// â”€â”€â”€ GLOBAL CONFIG â”€â”€â”€
+// ─── GLOBAL CONFIG ───
 const EASE = {
   smooth: 'power3.out',
   elastic: 'elastic.out(1, 0.5)',
@@ -31,13 +31,13 @@ window.addEventListener('resize', () => {
   }
 }, { passive: true });
 
-// â”€â”€â”€ PRELOADER â”€â”€â”€
+// -------- PRELOADER --------
 window.addEventListener('load', () => {
   const preloader = document.getElementById('preloader');
   const logo = document.querySelector('.preloader-logo');
   const percentText = document.getElementById('preloaderPercent');
-  
-  // â”€â”€â”€ SET HERO ELEMENTS HIDDEN (only on pages with hero) â”€â”€â”€
+
+  // -------- SET HERO ELEMENTS HIDDEN (only on pages with hero) --------
   const hasHero = document.querySelector('.hero');
   if (hasHero) {
     const heroTag = hasHero.querySelector('.hero-tag');
@@ -58,7 +58,7 @@ window.addEventListener('load', () => {
     if (hItems.length) gsap.set(hItems, { opacity: 0, x: -20 });
     if (hDividers.length) gsap.set(hDividers, { opacity: 0, scaleY: 0 });
   }
-  
+
   if (!preloader || !percentText) {
     document.body.classList.add('is-loaded');
     document.documentElement.classList.add('is-loaded');
@@ -79,9 +79,9 @@ window.addEventListener('load', () => {
     initAllAnimations();
     return;
   }
-  
+
   const tl = gsap.timeline();
-  
+
   // 1. Logo entrance with scale bounce
   tl.to(logo, { opacity: 1, scale: 1, duration: 0.8, ease: EASE.back });
 
@@ -98,97 +98,97 @@ window.addEventListener('load', () => {
     },
     onComplete: () => {
       const exitTl = gsap.timeline();
-      
+
       exitTl
         // Logo exit
         .to(logo, { y: -20, opacity: 0, duration: 0.4, ease: 'power2.in' })
         .add(() => preloader.classList.add('exit'))
-        
+
         // Wait for preloader fade-out, THEN reveal hero
         .add('heroStart', '+=0.5')
-        
-        // â”€â”€â”€ HERO REVEAL SEQUENCE â”€â”€â”€
-        .to('.hero-tag', { 
-          opacity: 1, y: 0, 
-          duration: 0.8, ease: EASE.smooth 
+
+        // -------- HERO REVEAL SEQUENCE --------
+        .to('.hero-tag', {
+          opacity: 1, y: 0,
+          duration: 0.8, ease: EASE.smooth
         }, 'heroStart')
-        
-        .to('.hero h1', { 
-          opacity: 1, y: 0, 
-          duration: 1.2, ease: 'power4.out' 
+
+        .to('.hero h1', {
+          opacity: 1, y: 0,
+          duration: 1.2, ease: 'power4.out'
         }, 'heroStart+=0.15')
-        
-        .to('.hero-desc', { 
-          opacity: 1, y: 0, 
-          duration: 0.8, ease: EASE.smooth 
+
+        .to('.hero-desc', {
+          opacity: 1, y: 0,
+          duration: 0.8, ease: EASE.smooth
         }, 'heroStart+=0.35')
-        
-        .to('.hero-phone img', { 
-          opacity: 1, y: 0, scale: 1, rotateY: 0, 
-          duration: 1.4, ease: EASE.butter 
+
+        .to('.hero-phone img', {
+          opacity: 1, y: 0, scale: 1, rotateY: 0,
+          duration: 1.4, ease: EASE.butter
         }, 'heroStart+=0.2')
-        
-        .to('.hero-actions', { 
-          opacity: 1, y: 0, 
-          duration: 0.8, ease: EASE.smooth 
+
+        .to('.hero-actions', {
+          opacity: 1, y: 0,
+          duration: 0.8, ease: EASE.smooth
         }, 'heroStart+=0.5')
-        
-        .to('.hero-highlights', { 
-          opacity: 1, y: 0, 
-          duration: 0.8, ease: EASE.smooth 
+
+        .to('.hero-highlights', {
+          opacity: 1, y: 0,
+          duration: 0.8, ease: EASE.smooth
         }, 'heroStart+=0.6')
-        
+
         // Stagger the individual highlight items
-        .fromTo('.h-item', 
+        .fromTo('.h-item',
           { opacity: 0, x: -20 },
           { opacity: 1, x: 0, duration: 0.6, stagger: 0.15, ease: EASE.back },
           'heroStart+=0.7'
         )
-        
-        // Dividers scale in
-        exitTl.to('.h-divider', {
-          opacity: 1, scaleY: 1,
-          duration: 0.4, stagger: 0.1, ease: EASE.smooth
-        }, 'heroStart+=0.9');
-        
-        exitTl.add(() => {
-          preloader.classList.add('hidden');
-          document.body.classList.add('is-loaded');
-          document.documentElement.classList.add('is-loaded');
-          
-          initAllAnimations();
-          
-          // Floating phone animation (infinite)
-          gsap.to('.hero-phone img', {
-            y: '+=20',
-            duration: 3,
-            ease: 'sine.inOut',
-            yoyo: true,
-            repeat: -1
-          });
+
+      // Dividers scale in
+      exitTl.to('.h-divider', {
+        opacity: 1, scaleY: 1,
+        duration: 0.4, stagger: 0.1, ease: EASE.smooth
+      }, 'heroStart+=0.9');
+
+      exitTl.add(() => {
+        preloader.classList.add('hidden');
+        document.body.classList.add('is-loaded');
+        document.documentElement.classList.add('is-loaded');
+
+        initAllAnimations();
+
+        // Floating phone animation (infinite)
+        gsap.to('.hero-phone img', {
+          y: '+=20',
+          duration: 3,
+          ease: 'sine.inOut',
+          yoyo: true,
+          repeat: -1
         });
+      });
     }
   });
 });
 
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// -----------------------------------------------------------------------------
 // MASTER ANIMATION INITIALIZATION
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// -----------------------------------------------------------------------------
 function initAllAnimations() {
-  // Clear CSS .reveal state â€” GSAP takes full control
+  // Clear CSS .reveal state –” GSAP takes full control
   const reveals = document.querySelectorAll('.reveal');
   if (reveals.length > 0) {
     gsap.set(reveals, { opacity: 1, y: 0, scale: 1, clearProps: 'transform' });
   }
-  
+
   // Kill existing triggers to prevent double initialization on resize/refresh
   ScrollTrigger.getAll().forEach(t => {
     if (t.vars.id !== 'preloader') t.kill();
   });
 
   ScrollTrigger.refresh();
-  
+
   initSectionHeaders();
   initSubpageHero();
   initGenericReveals();
@@ -206,17 +206,17 @@ function initAllAnimations() {
 }
 
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-// 1. SECTION HEADERS â€” Elegant Split Reveal
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// -----------------------------------------------------------------------------
+// 1. SECTION HEADERS –” Elegant Split Reveal
+// -----------------------------------------------------------------------------
 function initSectionHeaders() {
   const headers = document.querySelectorAll('.features-header, .premium-header, .testimonials-header, .faq-header');
-  
+
   headers.forEach(header => {
     const tag = header.querySelector('.section-tag');
     const title = header.querySelector('.section-title');
     const desc = header.querySelector('.section-desc');
-    
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: header,
@@ -224,18 +224,18 @@ function initSectionHeaders() {
         toggleActions: 'play none none none'
       }
     });
-    
-    if (tag) tl.fromTo(tag, 
+
+    if (tag) tl.fromTo(tag,
       { opacity: 0, y: 30, scale: 0.9 },
       { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: EASE.back }
     );
-    
+
     if (title) tl.fromTo(title,
       { opacity: 0, y: 50, clipPath: 'inset(0 0 100% 0)' },
       { opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)', duration: 1.2, ease: EASE.expo },
       '-=0.5'
     );
-    
+
     if (desc) tl.fromTo(desc,
       { opacity: 0, y: 30 },
       { opacity: 1, y: 0, duration: 0.8, ease: EASE.smooth },
@@ -245,9 +245,9 @@ function initSectionHeaders() {
 }
 
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-// 1.1 SUBPAGE HERO â€” Cinematic Entrance
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// ──────────────────────────────────────────────────────────────────
+// 1.1 SUBPAGE HERO –” Cinematic Entrance
+// ──────────────────────────────────────────────────────────────────
 function initSubpageHero() {
   const hero = document.querySelector('.support-hero, .legal-content');
   if (!hero) return;
@@ -258,7 +258,7 @@ function initSubpageHero() {
 
   const tl = gsap.timeline({ delay: 0.2 });
 
-  if (tag) tl.fromTo(tag, 
+  if (tag) tl.fromTo(tag,
     { opacity: 0, y: 20, scale: 0.9 },
     { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: EASE.back }
   );
@@ -277,13 +277,13 @@ function initSubpageHero() {
 }
 
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-// 1.2 GENERIC REVEALS â€” For all remaining .reveal items
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// -----------------------------------------------------------------------------
+// 1.2 GENERIC REVEALS –” For all remaining .reveal items
+// -----------------------------------------------------------------------------
 function initGenericReveals() {
   // Select all .reveal that aren't already part of a complex timeline
   const items = document.querySelectorAll('.reveal:not(.section-tag):not(.section-title):not(.section-desc):not(.feature-card):not(.premium-card):not(.faq-item):not(.showcase-img):not(.showcase-content):not(.marquee-band)');
-  
+
   items.forEach(item => {
     gsap.fromTo(item,
       { opacity: 0, y: 20, scale: 0.98 },
@@ -305,20 +305,20 @@ function initGenericReveals() {
 function initFeatureCards() {
   const grid = document.querySelector('.features-grid');
   if (!grid) return;
-  
+
   const cards = grid.querySelectorAll('.feature-card');
-  
+
   cards.forEach((card, i) => {
     // Initial state
-    gsap.set(card, { 
-      opacity: 0, 
-      y: 80, 
+    gsap.set(card, {
+      opacity: 0,
+      y: 80,
       scale: 0.92,
       rotateX: 8,
       transformPerspective: 1000,
       transformOrigin: 'center bottom'
     });
-    
+
     gsap.to(card, {
       opacity: 1,
       y: 0,
@@ -333,13 +333,13 @@ function initFeatureCards() {
         toggleActions: 'play none none none'
       }
     });
-    
+
     // Icon & inner elements stagger
     const icon = card.querySelector('.feature-icon');
     const h3 = card.querySelector('h3');
     const p = card.querySelector('p');
     const link = card.querySelector('.feature-link');
-    
+
     const innerTl = gsap.timeline({
       scrollTrigger: {
         trigger: card,
@@ -347,24 +347,24 @@ function initFeatureCards() {
         toggleActions: 'play none none none'
       }
     });
-    
+
     if (icon) innerTl.fromTo(icon,
       { scale: 0, rotation: -45 },
       { scale: 1, rotation: 0, duration: 0.8, ease: EASE.elastic, delay: i * 0.12 + 0.3 }
     );
-    
+
     if (h3) innerTl.fromTo(h3,
       { opacity: 0, x: -20 },
       { opacity: 1, x: 0, duration: 0.6, ease: EASE.smooth },
       '-=0.4'
     );
-    
+
     if (p) innerTl.fromTo(p,
       { opacity: 0 },
       { opacity: 1, duration: 0.5, ease: EASE.butter },
       '-=0.3'
     );
-    
+
     if (link) innerTl.fromTo(link,
       { opacity: 0, x: -15 },
       { opacity: 1, x: 0, duration: 0.5, ease: EASE.smooth },
@@ -374,16 +374,16 @@ function initFeatureCards() {
 }
 
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-// 3. SHOWCASE SECTIONS â€” Cinematic Split Reveals
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// -----------------------------------------------------------------------------
+// 3. SHOWCASE SECTIONS –” Cinematic Split Reveals
+// -----------------------------------------------------------------------------
 function initShowcaseSections() {
   document.querySelectorAll('.showcase').forEach(section => {
     const imgWrap = section.querySelector('.showcase-img');
     const img = section.querySelector('.showcase-img img');
     const contentWrap = section.querySelector('.showcase-content');
     const isReverse = section.querySelector('.showcase-grid.reverse');
-    
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
@@ -391,7 +391,7 @@ function initShowcaseSections() {
         toggleActions: 'play none none none'
       }
     });
-    
+
     // Image wrapper + image: Slide in from opposite side
     if (imgWrap && img) {
       const xDir = isReverse ? 80 : -80;
@@ -404,37 +404,37 @@ function initShowcaseSections() {
       );
       tl.to(imgWrap, { opacity: 1, x: 0, duration: 1.4, ease: EASE.expo }, '<');
     }
-    
+
     // Content wrapper + children
     if (contentWrap) {
       gsap.set(contentWrap, { opacity: 0, y: 40 });
       tl.to(contentWrap, { opacity: 1, y: 0, duration: 0.01 }, '<+0.2');
-      
+
       const tag = contentWrap.querySelector('.section-tag');
       const title = contentWrap.querySelector('.section-title');
       const desc = contentWrap.querySelector('.section-desc');
       const listItems = contentWrap.querySelectorAll('.showcase-list li');
-      
+
       tl.to(contentWrap, { opacity: 1, y: 0, duration: 1, ease: EASE.expo }, '<');
-      
+
       if (tag) tl.fromTo(tag,
         { opacity: 0, y: 20 },
         { opacity: 1, y: 0, duration: 0.6, ease: EASE.smooth },
         '-=0.7'
       );
-      
+
       if (title) tl.fromTo(title,
         { opacity: 0, y: 40, clipPath: 'inset(0 0 100% 0)' },
         { opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)', duration: 1, ease: EASE.expo },
         '-=0.4'
       );
-      
+
       if (desc) tl.fromTo(desc,
         { opacity: 0, y: 20 },
         { opacity: 1, y: 0, duration: 0.7, ease: EASE.smooth },
         '-=0.5'
       );
-      
+
       if (listItems.length) {
         tl.fromTo(listItems,
           { opacity: 0, x: -30 },
@@ -447,22 +447,22 @@ function initShowcaseSections() {
 }
 
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-// 4. TECH SECTION â€” Dramatic Dark Entry
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// -----------------------------------------------------------------------------
+// 4. TECH SECTION –” Dramatic Dark Entry
+// -----------------------------------------------------------------------------
 function initTechSection() {
   const section = document.querySelector('.app-preview');
   if (!section) return;
-  
+
   const contentWrap = section.querySelector('.app-preview-content');
   const tag = section.querySelector('.section-tag');
   const title = section.querySelector('.section-title');
   const desc = section.querySelector('.section-desc');
   const items = section.querySelectorAll('.tech-item');
-  
+
   // Ensure the .reveal wrapper is visible
   if (contentWrap) gsap.set(contentWrap, { opacity: 1, y: 0 });
-  
+
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: section,
@@ -470,33 +470,33 @@ function initTechSection() {
       toggleActions: 'play none none none'
     }
   });
-  
+
   if (tag) tl.fromTo(tag,
     { opacity: 0, y: 30, letterSpacing: '15px' },
     { opacity: 1, y: 0, letterSpacing: '5px', duration: 1, ease: EASE.expo }
   );
-  
+
   if (title) tl.fromTo(title,
     { opacity: 0, y: 60, scale: 0.9 },
     { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: EASE.expo },
     '-=0.7'
   );
-  
+
   if (desc) tl.fromTo(desc,
     { opacity: 0, y: 30 },
     { opacity: 1, y: 0, duration: 0.8, ease: EASE.smooth },
     '-=0.6'
   );
-  
+
   items.forEach((item, i) => {
     const icon = item.querySelector('.tech-icon');
-    
+
     tl.fromTo(item,
       { opacity: 0, y: 60 },
       { opacity: 1, y: 0, duration: 0.8, ease: EASE.back },
       `-=${0.6 - i * 0.1}`
     );
-    
+
     if (icon) tl.fromTo(icon,
       { scale: 0, rotation: -90 },
       { scale: 1, rotation: 0, duration: 0.8, ease: EASE.elastic },
@@ -506,13 +506,13 @@ function initTechSection() {
 }
 
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-// 4b. MARQUEE BAND â€” Scroll Triggered Entrance
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// -----------------------------------------------------------------------------
+// 4b. MARQUEE BAND –” Scroll Triggered Entrance
+// -----------------------------------------------------------------------------
 function initMarqueeBand() {
   const band = document.querySelector('.stats-band');
   if (!band) return;
-  
+
   gsap.fromTo(band,
     { opacity: 0, scaleX: 0.9 },
     {
@@ -530,15 +530,15 @@ function initMarqueeBand() {
 }
 
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-// 5. PREMIUM CARDS â€” Luxury Cascade
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// -----------------------------------------------------------------------------
+// 5. PREMIUM CARDS –” Luxury Cascade
+// -----------------------------------------------------------------------------
 function initPremiumCards() {
   const grid = document.querySelector('.premium-grid');
   if (!grid) return;
-  
+
   const cards = grid.querySelectorAll('.premium-card');
-  
+
   cards.forEach((card, i) => {
     gsap.set(card, {
       opacity: 0,
@@ -547,7 +547,7 @@ function initPremiumCards() {
       rotateX: 5,
       transformPerspective: 800
     });
-    
+
     gsap.to(card, {
       opacity: 1,
       y: 0,
@@ -562,16 +562,16 @@ function initPremiumCards() {
         toggleActions: 'play none none none'
       }
     });
-    
+
     // Icon pulse on reveal
     const icon = card.querySelector('.p-icon');
     if (icon) {
       gsap.fromTo(icon,
         { scale: 0 },
-        { 
-          scale: 1, 
-          duration: 0.7, 
-          ease: EASE.elastic, 
+        {
+          scale: 1,
+          duration: 0.7,
+          ease: EASE.elastic,
           delay: i * 0.1 + 0.5,
           scrollTrigger: {
             trigger: grid,
@@ -582,7 +582,7 @@ function initPremiumCards() {
       );
     }
   });
-  
+
   // Premium footer CTA
   const footer = document.querySelector('.premium-footer');
   if (footer) {
@@ -602,23 +602,23 @@ function initPremiumCards() {
 }
 
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-// 6. TESTIMONIALS â€” Smooth Card Fan
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// -----------------------------------------------------------------------------
+// 6. TESTIMONIALS –” Smooth Card Fan
+// -----------------------------------------------------------------------------
 function initTestimonials() {
   const grid = document.querySelector('.testimonials-grid');
   if (!grid) return;
-  
+
   const cards = grid.querySelectorAll('.testimonial-card');
-  
+
   cards.forEach((card, i) => {
     // Cards slide in with rotation
     gsap.fromTo(card,
-      { 
-        opacity: 0, 
-        y: 60, 
+      {
+        opacity: 0,
+        y: 60,
         rotateZ: i === 0 ? -3 : i === 2 ? 3 : 0,
-        scale: 0.9 
+        scale: 0.9
       },
       {
         opacity: 1,
@@ -635,7 +635,7 @@ function initTestimonials() {
         }
       }
     );
-    
+
     // Stars animate in sequence
     const stars = card.querySelectorAll('.testimonial-stars i');
     if (stars.length > 0) {
@@ -661,12 +661,12 @@ function initTestimonials() {
 }
 
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-// 7. FAQ â€” Accordion Slide with Spring
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// -----------------------------------------------------------------------------
+// 7. FAQ –” Accordion Slide with Spring
+// -----------------------------------------------------------------------------
 function initFAQ() {
   const items = document.querySelectorAll('.faq-item');
-  
+
   items.forEach((item, i) => {
     gsap.fromTo(item,
       { opacity: 0, x: i % 2 === 0 ? -40 : 40, scale: 0.95 },
@@ -685,17 +685,17 @@ function initFAQ() {
       }
     );
   });
-  
+
   // FAQ accordion click handler
   items.forEach(item => {
     const question = item.querySelector('.faq-q');
     if (question) {
       question.addEventListener('click', () => {
         const isActive = item.classList.contains('active');
-        
+
         // Close all
         items.forEach(other => other.classList.remove('active'));
-        
+
         // Toggle current
         if (!isActive) {
           item.classList.add('active');
@@ -706,13 +706,13 @@ function initFAQ() {
 }
 
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-// 8. DOWNLOAD CTA â€” Grand Reveal
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// -----------------------------------------------------------------------------
+// 8. DOWNLOAD CTA –” Grand Reveal
+// -----------------------------------------------------------------------------
 function initDownloadCTA() {
   const section = document.querySelector('.download');
   if (!section) return;
-  
+
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: section,
@@ -720,24 +720,24 @@ function initDownloadCTA() {
       toggleActions: 'play none none none'
     }
   });
-  
+
   tl.fromTo(section.querySelector('.section-tag'),
     { opacity: 0, y: 30 },
     { opacity: 1, y: 0, duration: 0.8, ease: EASE.smooth }
   );
-  
+
   tl.fromTo(section.querySelector('.section-title'),
     { opacity: 0, y: 60, scale: 0.85 },
     { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: EASE.expo },
     '-=0.5'
   );
-  
+
   tl.fromTo(section.querySelector('.section-desc'),
     { opacity: 0, y: 30 },
     { opacity: 1, y: 0, duration: 0.8, ease: EASE.smooth },
     '-=0.6'
   );
-  
+
   const storeBtn = section.querySelector('.store-btn');
   if (storeBtn) {
     tl.fromTo(storeBtn,
@@ -749,17 +749,17 @@ function initDownloadCTA() {
 }
 
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-// 9. FOOTER â€” Elegant Rise
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// -----------------------------------------------------------------------------
+// 9. FOOTER –” Elegant Rise
+// -----------------------------------------------------------------------------
 function initFooter() {
   const footer = document.querySelector('.footer');
   if (!footer) return;
-  
+
   const cols = footer.querySelectorAll('.footer-col');
   const info = footer.querySelector('.footer-info');
   const bottom = footer.querySelector('.footer-bottom');
-  
+
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: footer,
@@ -767,19 +767,19 @@ function initFooter() {
       toggleActions: 'play none none none'
     }
   });
-  
+
   if (info) tl.fromTo(info,
     { opacity: 0, y: 40 },
     { opacity: 1, y: 0, duration: 0.8, ease: EASE.smooth }
   );
-  
+
   cols.forEach((col, i) => {
     tl.fromTo(col,
       { opacity: 0, y: 30 },
       { opacity: 1, y: 0, duration: 0.6, ease: EASE.smooth },
       `-=${0.4}`
     );
-    
+
     // Stagger footer links
     const links = col.querySelectorAll('a');
     if (links.length > 0) {
@@ -790,7 +790,7 @@ function initFooter() {
       );
     }
   });
-  
+
   if (bottom) tl.fromTo(bottom,
     { opacity: 0 },
     { opacity: 1, duration: 0.6, ease: EASE.smooth },
@@ -799,9 +799,9 @@ function initFooter() {
 }
 
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-// 10. PARALLAX EFFECTS â€” Subtle Depth
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// -----------------------------------------------------------------------------
+// 10. PARALLAX EFFECTS –” Subtle Depth
+// -----------------------------------------------------------------------------
 function initParallaxEffects() {
   // Hero phone parallax
   const heroPhone = document.querySelector('.hero-phone');
@@ -818,7 +818,7 @@ function initParallaxEffects() {
       }
     });
   }
-  
+
   // Showcase images parallax
   document.querySelectorAll('.showcase-img img').forEach(img => {
     gsap.to(img, {
@@ -833,7 +833,7 @@ function initParallaxEffects() {
       }
     });
   });
-  
+
   // Glow blobs gentle parallax
   document.querySelectorAll('.glow-blob').forEach((blob, i) => {
     gsap.to(blob, {
@@ -848,7 +848,7 @@ function initParallaxEffects() {
       }
     });
   });
-  
+
   // Section tags parallax (slight upward movement)
   document.querySelectorAll('.section-tag').forEach(tag => {
     gsap.to(tag, {
@@ -865,18 +865,18 @@ function initParallaxEffects() {
 }
 
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-// 11. NAVBAR â€” Smart Scroll Effects
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// -----------------------------------------------------------------------------
+// 11. NAVBAR –” Smart Scroll Effects
+// -----------------------------------------------------------------------------
 function initNavbarEffects() {
   const navbar = document.getElementById('navbar') || document.querySelector('.nav');
   if (!navbar) return;
-  
+
   let lastScroll = 0;
-  
+
   window.addEventListener('scroll', () => {
     const currentScroll = window.scrollY;
-    
+
     if (currentScroll > 60) {
       navbar.classList.add('scrolled');
     } else {
@@ -884,15 +884,15 @@ function initNavbarEffects() {
         navbar.classList.remove('scrolled');
       }
     }
-    
+
     lastScroll = currentScroll;
   }, { passive: true });
 }
 
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// -----------------------------------------------------------------------------
 // MOBILE MENU
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// -----------------------------------------------------------------------------
 const hamburgerBtn = document.getElementById('hamburgerBtn');
 const mobileMenu = document.getElementById('mobileMenu');
 const closeMenu = document.getElementById('closeMenu');
@@ -901,17 +901,17 @@ if (hamburgerBtn && mobileMenu) {
   hamburgerBtn.addEventListener('click', () => {
     mobileMenu.classList.add('open');
     document.body.style.overflow = 'hidden'; // Prevent background scroll
-    
-    gsap.fromTo(mobileMenu.querySelectorAll('a'), 
-      { opacity: 0, y: 30, scale: 0.8 }, 
-      { 
-        opacity: 1, 
-        y: 0, 
-        scale: 1, 
-        duration: 0.6, 
-        stagger: 0.1, 
-        ease: EASE.back, 
-        delay: 0.2 
+
+    gsap.fromTo(mobileMenu.querySelectorAll('a'),
+      { opacity: 0, y: 30, scale: 0.8 },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: EASE.back,
+        delay: 0.2
       }
     );
   });
@@ -924,24 +924,24 @@ if (closeMenu && mobileMenu) {
 }
 
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// -----------------------------------------------------------------------------
 // SMOOTH SCROLL
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// -----------------------------------------------------------------------------
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     const href = this.getAttribute('href');
     if (href === '#') return; // Do nothing for empty anchors
-    
+
     e.preventDefault();
     try {
       const target = document.querySelector(href);
       if (target) {
-        gsap.to(window, { 
-          duration: 1, 
-          scrollTo: { y: target, offsetY: 100 }, 
-          ease: 'power4.inOut' 
+        gsap.to(window, {
+          duration: 1,
+          scrollTo: { y: target, offsetY: 100 },
+          ease: 'power4.inOut'
         });
-        
+
         // Close mobile menu if open
         if (typeof mobileMenu !== 'undefined' && mobileMenu) {
           mobileMenu.classList.remove('open');
@@ -955,9 +955,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// -----------------------------------------------------------------------------
 // BACK TO TOP
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// -----------------------------------------------------------------------------
 const backToTopBtn = document.getElementById('backToTopLink');
 if (backToTopBtn) {
   window.addEventListener('scroll', () => {
@@ -971,9 +971,9 @@ if (backToTopBtn) {
 }
 
 
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// -----------------------------------------------------------------------------
 // CHAT WIDGET
-// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// -----------------------------------------------------------------------------
 const chatWidget = document.getElementById('chatWidget');
 const supportToggle = document.getElementById('supportToggle');
 const closeWidget = document.getElementById('closeWidget');
@@ -986,7 +986,7 @@ if (chatWidget) {
       chatWidget.classList.toggle('active');
     });
   }
-  
+
   if (triggerChat) {
     triggerChat.addEventListener('click', (e) => {
       e.preventDefault();
@@ -1011,71 +1011,71 @@ if (typeof lucide !== 'undefined') {
    GA4 EVENT TRACKING SYSTEM
    ═══════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Download Events
-    const downloadElements = document.querySelectorAll('a[href*="play.google.com"], .nav-cta, .btn-primary');
-    downloadElements.forEach(el => {
-        el.addEventListener('click', () => {
-            const location = el.closest('nav') ? 'navbar' : (el.closest('.hero') ? 'hero' : 'content');
-            gtag('event', 'download_click', {
-                'event_category': 'conversion',
-                'event_label': 'Google Play Store',
-                'location': location
-            });
-        });
+  // 1. Download Events
+  const downloadElements = document.querySelectorAll('a[href*="play.google.com"], .nav-cta, .btn-primary');
+  downloadElements.forEach(el => {
+    el.addEventListener('click', () => {
+      const location = el.closest('nav') ? 'navbar' : (el.closest('.hero') ? 'hero' : 'content');
+      gtag('event', 'download_click', {
+        'event_category': 'conversion',
+        'event_label': 'Google Play Store',
+        'location': location
+      });
     });
+  });
 
-    // 2. Navigation & Feature Exploration
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-        link.addEventListener('click', () => {
-            const target = link.getAttribute('href').substring(1);
-            gtag('event', 'navigation_click', {
-                'target_section': target
-            });
-        });
+  // 2. Navigation & Feature Exploration
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', () => {
+      const target = link.getAttribute('href').substring(1);
+      gtag('event', 'navigation_click', {
+        'target_section': target
+      });
     });
+  });
 
-    // 3. Support & Contact
-    const supportLink = document.querySelector('a[href="support.html"]');
-    if (supportLink) {
-        supportLink.addEventListener('click', () => {
-            gtag('event', 'support_visit', {
-                'event_category': 'engagement'
-            });
-        });
-    }
-
-    // 4. Feature Card Interactions
-    document.querySelectorAll('.feature-card').forEach(card => {
-        card.addEventListener('click', () => {
-            const featureTitle = card.querySelector('h3')?.innerText || 'unknown_feature';
-            gtag('event', 'feature_view_detail', {
-                'feature_name': featureTitle
-            });
-        });
+  // 3. Support & Contact
+  const supportLink = document.querySelector('a[href="support.html"]');
+  if (supportLink) {
+    supportLink.addEventListener('click', () => {
+      gtag('event', 'support_visit', {
+        'event_category': 'engagement'
+      });
     });
-    
-    // 5. Scroll Depth / Section Visibility (Key Milestones)
-    const observerOptions = { threshold: 0.5 };
-    const sectionObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                gtag('event', 'section_view', {
-                    'section_name': entry.target.id || entry.target.className
-                });
-            }
-        });
-    }, observerOptions);
+  }
 
-    document.querySelectorAll('section[id]').forEach(section => sectionObserver.observe(section));
+  // 4. Feature Card Interactions
+  document.querySelectorAll('.feature-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const featureTitle = card.querySelector('h3')?.innerText || 'unknown_feature';
+      gtag('event', 'feature_view_detail', {
+        'feature_name': featureTitle
+      });
+    });
+  });
+
+  // 5. Scroll Depth / Section Visibility (Key Milestones)
+  const observerOptions = { threshold: 0.5 };
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        gtag('event', 'section_view', {
+          'section_name': entry.target.id || entry.target.className
+        });
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('section[id]').forEach(section => sectionObserver.observe(section));
 });
-    
-    // 6. Support Form Tracking
-    const supportForm = document.querySelector('.main-contact-form, .support-form');
-    if (supportForm) {
-        supportForm.addEventListener('submit', () => {
-            gtag('event', 'generate_lead', {
-                'event_category': 'conversion',
-                'event_label': 'Support Form Submit'
-            });
-        });
-    }
+
+// 6. Support Form Tracking
+const supportForm = document.querySelector('.main-contact-form, .support-form');
+if (supportForm) {
+  supportForm.addEventListener('submit', () => {
+    gtag('event', 'generate_lead', {
+      'event_category': 'conversion',
+      'event_label': 'Support Form Submit'
+    });
+  });
+}
