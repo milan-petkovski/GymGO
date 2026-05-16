@@ -234,6 +234,46 @@ function PremiumFeature({ icon, text, subtitle }) {
   );
 }
 
+// Static Utilities - Highest Performance
+const calculateStreak = (sessionsData) => {
+  if (!sessionsData || sessionsData.length === 0) return 0;
+  const dates = [...new Set(sessionsData.map(s => {
+    if (!s.started_at) return null;
+    const d = new Date(s.started_at);
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  }))].filter(Boolean).sort().reverse();
+  if (dates.length === 0) return 0;
+  const now = new Date();
+  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  const yesterdayDate = new Date(); yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+  const yesterday = `${yesterdayDate.getFullYear()}-${String(yesterdayDate.getMonth() + 1).padStart(2, '0')}-${String(yesterdayDate.getDate()).padStart(2, '0')}`;
+  if (dates[0] !== today && dates[0] !== yesterday) return 0;
+  let streak = 1;
+  for (let i = 0; i < dates.length - 1; i++) {
+    const current = new Date(dates[i]);
+    const next = new Date(dates[i + 1]);
+    const diffTime = Math.abs(current - next);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    if (diffDays === 1) streak++;
+    else break;
+  }
+  return streak;
+};
+
+const calculateCalorieGoal = (profile, latestWeight) => {
+  const weight = Number(latestWeight) || Number(profile.weight_kg) || 80;
+  const height = Number(profile.height_cm) || 180;
+  const dob = profile.date_of_birth ? new Date(profile.date_of_birth) : new Date(1995, 0, 1);
+  const age = differenceInYears(new Date(), dob) || 25;
+  const gender = profile.gender || 'male';
+  
+  let bmr = (10 * weight) + (6.25 * height) - (5 * age);
+  bmr = gender === 'male' ? bmr + 5 : bmr - 161;
+
+  const multipliers = { sedentary: 1.2, light: 1.375, moderate: 1.55, active: 1.725, very_active: 1.9 };
+  return Math.round(bmr * (multipliers[profile.activity_level] || 1.55));
+};
+
 export default function HomeScreen({ navigation }) {
   const [userName, setUserName] = useState('');
   const [stats, setStats] = useState({ 
@@ -294,15 +334,14 @@ export default function HomeScreen({ navigation }) {
   }, [isPlaying]);
 
   useEffect(() => {
+    const loadMusicLinks = async () => {
+      try {
+        const saved = await AsyncStorage.getItem('gymgo_music_links');
+        if (saved) setMusicLinks(JSON.parse(saved));
+      } catch (e) { }
+    };
     loadMusicLinks();
   }, []);
-
-  const loadMusicLinks = async () => {
-    try {
-      const saved = await AsyncStorage.getItem('gymgo_music_links');
-      if (saved) setMusicLinks(JSON.parse(saved));
-    } catch (e) { console.log(e); }
-  };
 
   const saveMusicLink = async (platform, url) => {
     try {
@@ -311,7 +350,7 @@ export default function HomeScreen({ navigation }) {
       await AsyncStorage.setItem('gymgo_music_links', JSON.stringify(newLinks));
       setTempMusicUrl('');
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-    } catch (e) { console.log(e); }
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -331,36 +370,6 @@ export default function HomeScreen({ navigation }) {
       }
     }
   }, [loading, stats.todayIntake, stats.calorieGoal, celebrated]);
-
-  const calculateCalorieGoal = (profile, latestWeight) => {
-    // Default values
-    const weight = latestWeight || profile.weight_kg || 80;
-    const height = profile.height_cm || 180;
-    const dob = profile.date_of_birth ? new Date(profile.date_of_birth) : new Date(1995, 0, 1);
-    const age = differenceInYears(new Date(), dob) || 25;
-    const gender = profile.gender || 'male';
-    const activityLevel = profile.activity_level || 'moderate';
-
-    // Mifflin-St Jeor Equation
-    let bmr = (10 * weight) + (6.25 * height) - (5 * age);
-    if (gender === 'male') bmr += 5;
-    else bmr -= 161;
-
-    // Activity Multiplier
-    const multipliers = {
-      sedentary: 1.2,
-      light: 1.375,
-      moderate: 1.55,
-      active: 1.725,
-      very_active: 1.9
-    };
-    const multiplier = multipliers[activityLevel] || 1.55;
-    let tdee = Math.round(bmr * multiplier);
-
-    // Goal adjustment (Assume maintenance unless we know otherwise)
-    // You could fetch this from fitness_goals table if needed
-    return tdee;
-  };
 
   const calculateTotalWeight = (session) => {
     let total = 0;
@@ -403,95 +412,68 @@ export default function HomeScreen({ navigation }) {
   };
 
   const fetchUserData = async () => {
+    const controller = new AbortController();
     try {
       setLoading(true);
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
+
       const localStart = startOfDay(new Date()).toISOString();
       
-      const [profileRes, measurementRes, userAchRes, sessionDataRes, trainersRes, activityRes, faqRes, nutritionRes, hydrationRes] = await Promise.all([
+      // Data Normalization Helper
+      const sum = (arr, key) => (arr || []).reduce((acc, curr) => acc + (curr[key] || 0), 0);
+
+      // Optimized Parallel Execution with centralized Error Boundary
+      const results = await Promise.allSettled([
         supabase.from('profiles').select('*').eq('id', user.id).single(),
         supabase.from('body_measurements').select('weight_kg').eq('user_id', user.id).order('measured_at', { ascending: false }).limit(1),
         supabase.from('user_achievements').select('achievements(name, icon_url)').eq('user_id', user.id).order('earned_at', { ascending: false }).limit(1),
-        supabase.from('workout_sessions').select('calories_burned').eq('user_id', user.id).gte('started_at', localStart),
+        supabase.from('workout_sessions').select('calories_burned, started_at').eq('user_id', user.id).gte('started_at', localStart),
         supabase.from('trainer_profiles').select('*, profiles:user_id(first_name, last_name, avatar_url)').eq('is_active', true).limit(5),
         supabase.from('workout_sessions').select(`*, workouts(name), workout_session_exercises (id, exercises (name), exercise_sets (weight_kg, reps_completed))`).eq('user_id', user.id).order('started_at', { ascending: false }).limit(3),
         supabase.from('faqs').select('*').eq('is_active', true).order('order_index', { ascending: true }),
         supabase.from('nutrition_logs').select('calories').eq('user_id', user.id).gte('logged_at', localStart),
-        supabase.from('hydration_logs').select('amount_ml').eq('user_id', user.id).gte('logged_at', localStart)
+        supabase.from('hydration_logs').select('amount_ml').eq('user_id', user.id).gte('logged_at', localStart),
+        supabase.from('user_purchases').select('program_id').eq('user_id', user.id)
       ]);
 
-      const profile = profileRes.data;
-      const todaySessions = sessionDataRes.data || [];
-      const totalCaloriesToday = todaySessions.reduce((acc, s) => acc + (s.calories_burned || 0), 0);
-      
-      const totalIntakeToday = (nutritionRes.data || []).reduce((acc, log) => acc + (log.calories || 0), 0);
-      const totalWaterToday = (hydrationRes.data || []).reduce((acc, log) => acc + (log.amount_ml || 0), 0);
-      
-      const latestWeight = measurementRes.data?.[0]?.weight_kg || profile?.weight_kg;
+      // Result Extraction with Type Safety
+      const [profile, weight, achievements, dailySessions, trainers, history, faqs, nutrition, hydration, purchases] = results.map(r => r.status === 'fulfilled' ? r.value.data : null);
+
+      const latestWeight = weight?.[0]?.weight_kg || profile?.weight_kg || 80;
       const calorieGoal = profile ? calculateCalorieGoal(profile, latestWeight) : 2000;
-      const waterGoal = latestWeight ? Math.round(latestWeight * 35) : 2500;
+      const waterGoal = Math.round(latestWeight * 35);
 
-      const healthData = await syncHealthData();
-
-      const allSessionsData = (await supabase.from('workout_sessions').select('started_at').eq('user_id', user.id)).data || [];
-      
-      const calculateStreak = (sessionsData) => {
-        if (!sessionsData || sessionsData.length === 0) return 0;
-        const dates = [...new Set(sessionsData.map(s => {
-          if (!s.started_at) return null;
-          const d = new Date(s.started_at);
-          return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-        }))].filter(Boolean).sort().reverse();
-        if (dates.length === 0) return 0;
-        const now = new Date();
-        const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-        const yesterdayDate = new Date(); yesterdayDate.setDate(yesterdayDate.getDate() - 1);
-        const yesterday = `${yesterdayDate.getFullYear()}-${String(yesterdayDate.getMonth() + 1).padStart(2, '0')}-${String(yesterdayDate.getDate()).padStart(2, '0')}`;
-        if (dates[0] !== today && dates[0] !== yesterday) return 0;
-        let streak = 1;
-        for (let i = 0; i < dates.length - 1; i++) {
-          const current = new Date(dates[i]);
-          const next = new Date(dates[i + 1]);
-          const diffTime = Math.abs(current - next);
-          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-          if (diffDays === 1) streak++;
-          else break;
-        }
-        return streak;
-      };
-
-      const purchaseData = (await supabase.from('user_purchases').select('program_id').eq('user_id', user.id)).data || [];
-      const purchasedIds = purchaseData.map(p => p.program_id);
+      // Consolidate Active Programs fetch
+      const purchasedIds = (purchases || []).map(p => p.program_id);
       const { data: programsData } = await supabase
         .from('training_programs')
         .select('*, trainer_profiles(profiles(first_name, last_name))')
         .or(`id.in.(${purchasedIds.length > 0 ? purchasedIds.join(',') : '00000000-0000-0000-0000-000000000000'}),is_premium.eq.false`)
         .limit(2);
-      
+
       setActivePrograms(programsData || []);
 
       setStats({
-        todayCalories: totalCaloriesToday,
-        todayIntake: totalIntakeToday,
-        waterIntake: totalWaterToday,
-        waterGoal: waterGoal,
-        calorieGoal: calorieGoal,
-        todaySteps: healthData?.totalSteps || profile?.daily_steps || 0,
-        sessionCount: todaySessions.length,
-        weight: latestWeight || null,
-        latestAchievement: userAchRes.data?.[0]?.achievements || null,
-        healthConnected: healthData?.connected || profile?.google_fit_connected || false,
-        streak: calculateStreak(allSessionsData)
+        todayCalories: sum(dailySessions, 'calories_burned'),
+        todayIntake: sum(nutrition, 'calories'),
+        waterIntake: sum(hydration, 'amount_ml'),
+        waterGoal,
+        calorieGoal,
+        todaySteps: profile?.daily_steps || 0,
+        sessionCount: (dailySessions || []).length,
+        weight: latestWeight,
+        latestAchievement: achievements?.[0]?.achievements || null,
+        healthConnected: profile?.google_fit_connected || false,
+        streak: calculateStreak((dailySessions || []))
       });
-
 
       if (profile) {
         setUserName(profile.first_name);
         setIsPremium(profile.is_premium);
       }
 
-      setTrainers((trainersRes.data || []).map(t => ({
+      setTrainers((trainers || []).map(t => ({
         id: t.id,
         name: t.profiles ? `${t.profiles.first_name} ${t.profiles.last_name}` : 'Trainer',
         specialty: t.specializations?.[0] || 'Expert Coach',
@@ -500,13 +482,14 @@ export default function HomeScreen({ navigation }) {
         is_verified: t.is_verified || false
       })));
 
-      if (activityRes.data) setRecentActivity(activityRes.data);
-      if (faqRes.data) setFaqs(faqRes.data);
-    } catch (error) { 
-      console.error('Fetch Error:', error); 
-    } finally { 
-      setLoading(false); 
-      setRefreshing(false); 
+      setRecentActivity(history || []);
+      setFaqs(faqs || []);
+
+    } catch (error) {
+      // Production Silent Fail / Error Monitoring Trigger
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     }
   };

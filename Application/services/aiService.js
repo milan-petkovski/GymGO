@@ -1,48 +1,47 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { Constants } from 'expo-constants';
 
-// Initialize the API with your key from Google AI Studio
-const genAI = new GoogleGenerativeAI('AIzaSyAPN3vrKwf3sfasnXy5sotm3ejXa7oqfUY');
+const apiKey = Constants.expoConfig?.extra?.googleAiApiKey;
+let genAI = apiKey ? new GoogleGenerativeAI(apiKey) : null;
+
+// Security Helper: Validate and sanitize JSON from AI
+const safeParseAIJSON = (text, schema) => {
+  try {
+    const jsonStr = text.replace(/```json/g, '').replace(/```/g, '').trim();
+    const data = JSON.parse(jsonStr);
+    // Basic structural validation
+    const isValid = Object.keys(schema).every(key => typeof data[key] === typeof schema[key]);
+    return isValid ? data : null;
+  } catch { return null; }
+};
 
 export const processWorkoutVoiceInput = async (text) => {
+  if (!genAI || !text) return null;
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-    const prompt = `Extract exercise name, sets, and weight from this sentence and return ONLY a JSON object: {exercise: string, sets: number, weight: number}. Sentence: "${text}"`;
-    
+    // Sanitize user input by escaping quotes to prevent prompt breaking
+    const sanitizedText = text.replace(/"/g, '\\"');
+    const prompt = `System: You are a structured data extractor. 
+    User sentence: "${sanitizedText}"
+    Instruction: Return ONLY a JSON object: {exercise: string, sets: number, weight: number}.`;
+
     const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const textRes = response.text();
-    
-    // Clean up potential markdown formatting from the response
-    const jsonStr = textRes.replace(/```json/g, '').replace(/```/g, '').trim();
-    return JSON.parse(jsonStr);
+    return safeParseAIJSON(result.response.text(), { exercise: '', sets: 0, weight: 0 });
   } catch (error) {
-    console.error('Error processing voice input with Gemini:', error);
-    return null;
+    return null; // Silent fail in production
   }
 };
 
 export const processMealImage = async (base64Image) => {
+  if (!genAI || !base64Image) return null;
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
-    const prompt = "Analyze this meal image and estimate calories and macros (protein, carbs, fats). Return ONLY a JSON object: {food_name: string, calories: number, protein: number, carbs: number, fats: number}";
-    
-    const imageParts = [
-      {
-        inlineData: {
-          data: base64Image,
-          mimeType: "image/jpeg"
-        }
-      }
-    ];
+    const prompt = "Instruction: Analyze this meal. Return ONLY a JSON object: {food_name: string, calories: number, protein: number, carbs: number, fats: number}";
 
+    const imageParts = [{ inlineData: { data: base64Image, mimeType: "image/jpeg" } }];
     const result = await model.generateContent([prompt, ...imageParts]);
-    const response = await result.response;
-    const textRes = response.text();
-    
-    const jsonStr = textRes.replace(/```json/g, '').replace(/```/g, '').trim();
-    return JSON.parse(jsonStr);
+    return safeParseAIJSON(result.response.text(), { food_name: '', calories: 0, protein: 0, carbs: 0, fats: 0 });
   } catch (error) {
-    console.error('Error processing meal image with Gemini:', error);
     return null;
   }
 };

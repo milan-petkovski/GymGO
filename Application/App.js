@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import { View, Platform, LogBox } from 'react-native';
+import { View, Text, Platform, LogBox, TouchableOpacity } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import * as NavigationBar from 'expo-navigation-bar';
 import { createStackNavigator } from '@react-navigation/stack';
+import { ShieldAlert, RefreshCw } from 'lucide-react-native';
 import MainTabs from './navigation/MainTabs';
 import AuthScreen from './screens/AuthScreen';
 import AccountSetupScreen from './screens/AccountSetupScreen';
@@ -20,12 +21,38 @@ import { supabase } from './supabaseClient';
 
 const Stack = createStackNavigator();
 
-// Keep the splash screen visible while we fetch resources
-SplashScreen.preventAutoHideAsync();
+// Static silencing for non-critical logs
+LogBox.ignoreLogs(['Video component from `expo-av` is deprecated']);
 
-LogBox.ignoreLogs([
-  'Video component from `expo-av` is deprecated',
-]);
+// --- World-Class Error Boundary ---
+class ErrorBoundary extends Component {
+  state = { hasError: false };
+  static getDerivedStateFromError() { return { hasError: true }; }
+  componentDidCatch(error, info) { console.error("Global Error:", error, info); }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <View style={{ flex: 1, backgroundColor: '#111', justifyContent: 'center', alignItems: 'center', padding: 40 }}>
+          <View style={{ backgroundColor: '#FF572220', p: 20, borderRadius: 30, marginBottom: 20 }}>
+             <ShieldAlert color="#FF5722" size={60} />
+          </View>
+          <Text style={{ color: 'white', fontSize: 28, fontWeight: '900', textAlign: 'center' }}>System Alert</Text>
+          <Text style={{ color: '#888', textAlign: 'center', marginTop: 10, fontSize: 16 }}>An unexpected architectural error occurred. We have been notified.</Text>
+          <TouchableOpacity 
+            onPress={() => this.setState({ hasError: false })}
+            style={{ backgroundColor: '#FF5722', paddingVertical: 18, paddingHorizontal: 40, borderRadius: 25, marginTop: 40, flexDirection: 'row', alignItems: 'center' }}
+          >
+            <RefreshCw color="white" size={20} style={{ marginRight: 10 }} />
+            <Text style={{ color: 'white', fontWeight: '900' }}>REBOOT SYSTEM</Text>
+          </TouchableOpacity>
+        </View>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -40,93 +67,65 @@ export default function App() {
           await NavigationBar.setButtonStyleAsync('dark');
         }
 
-        // Initial session check and resource pre-loading
-        const { data, error } = await supabase.auth.getSession();
-        const initialSession = data?.session;
-        setSession(initialSession);
+        const { data } = await supabase.auth.getSession();
+        setSession(data?.session);
 
-        if (initialSession) {
-          const { data: profileData } = await supabase
-            .from('profiles')
-            .select('is_verified')
-            .eq('id', initialSession.user.id)
-            .single();
-
-          if (profileData && profileData.is_verified) {
-            setSetupComplete(true);
-          }
+        if (data?.session) {
+          const { data: profile } = await supabase.from('profiles').select('is_verified').eq('id', data.session.user.id).single();
+          setSetupComplete(profile?.is_verified || false);
         }
       } catch (e) {
-        console.warn('Initialization error:', e);
+        console.warn(e);
       } finally {
-        // This will trigger the app to render the navigator
         setAppIsReady(true);
       }
     }
 
     prepare();
 
-    // Fallback: hide splash screen after 5 seconds no matter what
-    const timeout = setTimeout(() => {
-      setAppIsReady(true);
-      SplashScreen.hideAsync().catch(() => { });
-    }, 5000);
-
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, newSession) => {
       setSession(newSession);
       if (newSession) {
-        supabase.from('profiles')
-          .select('is_verified')
-          .eq('id', newSession.user.id)
-          .single()
-          .then(({ data }) => {
-            setSetupComplete(data?.is_verified || false);
-          });
+        supabase.from('profiles').select('is_verified').eq('id', newSession.user.id).single()
+          .then(({ data }) => setSetupComplete(data?.is_verified || false));
       } else {
         setSetupComplete(false);
       }
     });
 
-    return () => {
-      subscription.unsubscribe();
-      clearTimeout(timeout);
-    };
+    return () => subscription.unsubscribe();
   }, []);
 
   const onLayoutRootView = useCallback(async () => {
-    if (appIsReady) {
-      // Hide the splash screen once the first layout is complete
-      await SplashScreen.hideAsync();
-    }
+    if (appIsReady) await SplashScreen.hideAsync();
   }, [appIsReady]);
 
-  if (!appIsReady) {
-    return null;
-  }
+  if (!appIsReady) return null;
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <SafeAreaProvider>
-        <StatusBar style="dark" />
-        <NavigationContainer>
-          {!session ? (
-            <AuthScreen />
-          ) : !setupComplete ? (
-            <AccountSetupScreen onComplete={() => setSetupComplete(true)} />
-          ) : (
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
-              <Stack.Screen name="MainTabs" component={MainTabs} />
-              <Stack.Screen name="WorkoutPlayer" component={WorkoutPlayerScreen} />
-              <Stack.Screen name="TrainerDetail" component={TrainerDetailScreen} />
-              <Stack.Screen name="VideoPlayer" component={VideoPlayerScreen} />
-              <Stack.Screen name="Checkout" component={CheckoutScreen} />
-              <Stack.Screen name="QuickLog" component={WorkoutPlayerScreen} />
-              <Stack.Screen name="Premium" component={PremiumScreen} />
-            </Stack.Navigator>
-          )}
-        </NavigationContainer>
-      </SafeAreaProvider>
-    </GestureHandlerRootView>
+    <ErrorBoundary>
+      <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
+        <SafeAreaProvider>
+          <StatusBar style="dark" />
+          <NavigationContainer>
+            {!session ? (
+              <AuthScreen />
+            ) : !setupComplete ? (
+              <AccountSetupScreen onComplete={() => setSetupComplete(true)} />
+            ) : (
+              <Stack.Navigator screenOptions={{ headerShown: false, cardStyle: { backgroundColor: 'white' } }}>
+                <Stack.Screen name="MainTabs" component={MainTabs} />
+                <Stack.Screen name="WorkoutPlayer" component={WorkoutPlayerScreen} />
+                <Stack.Screen name="TrainerDetail" component={TrainerDetailScreen} />
+                <Stack.Screen name="VideoPlayer" component={VideoPlayerScreen} />
+                <Stack.Screen name="Checkout" component={CheckoutScreen} />
+                <Stack.Screen name="Premium" component={PremiumScreen} />
+              </Stack.Navigator>
+            )}
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </GestureHandlerRootView>
+    </ErrorBoundary>
   );
 }
 

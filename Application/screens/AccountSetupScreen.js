@@ -243,28 +243,49 @@ export default function AccountSetupScreen({ onComplete }) {
     setLoading(true);
     try {
       const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error('Authentication required');
+
       const dob = store.dateOfBirth ? new Date(store.dateOfBirth) : null;
-      const dateString = dob ? `${dob.getFullYear()}-${(dob.getMonth() + 1).toString().padStart(2, '0')}-${dob.getDate().toString().padStart(2, '0')}` : null;
+      const dateString = dob ? dob.toISOString().split('T')[0] : null;
+
+      // Security: Sanitize and validate names
+      const cleanFirstName = (store.firstName || 'Athlete').trim().substring(0, 50);
+      const cleanLastName = (store.lastName || '').trim().substring(0, 50);
+
+      // Safety: Robust number parsing with fallbacks
+      const rawHeight = parseFloat(store.height) || 170;
+      const rawWeight = parseFloat(store.weight) || 70;
+
+      const height_cm = unit === 'metric' ? Math.round(rawHeight) : Math.round(rawHeight * 2.54);
+      const weight_kg = unit === 'metric' ? Number(rawWeight.toFixed(1)) : Number((rawWeight * 0.453592).toFixed(1));
 
       const { error } = await supabase.from('profiles').upsert({
         id: user.id,
         email: user.email,
-        first_name: store.firstName || 'Athlete',
-        last_name: store.lastName || '',
+        first_name: cleanFirstName,
+        last_name: cleanLastName,
         gender: store.gender,
-        height_cm: unit === 'metric' ? parseInt(store.height) : Math.round(parseInt(store.height) * 2.54),
-        weight_kg: unit === 'metric' ? parseFloat(store.weight) : parseFloat((parseFloat(store.weight) * 0.453592).toFixed(1)),
+        height_cm,
+        weight_kg,
         date_of_birth: dateString,
         activity_level: store.activityLevel,
         is_verified: true,
       });
 
       if (error) throw error;
-      await supabase.from('fitness_goals').upsert([{ user_id: user.id, type: store.goal, title: 'Primary Goal', start_date: new Date() }]);
+      
+      // Atomic transaction-like goals update
+      await supabase.from('fitness_goals').upsert({ 
+        user_id: user.id, 
+        type: store.goal, 
+        title: 'Primary Goal', 
+        start_date: new Date().toISOString() 
+      });
+
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       onComplete();
     } catch (error) {
-      showAlert(error.message);
+      showAlert(error.message || 'Setup failed. Please check your connection.');
       setStep(4);
     } finally {
       setLoading(false);

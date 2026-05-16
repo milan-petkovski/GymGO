@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Gym Go",
-    "slug": "Gym Go",
+    "slug": "GymGO",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/1.png",
@@ -12,7 +12,14 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.GymGo",
+      "config": {
+        "usesNonExemptEncryption": false
+      },
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "plugins": [
       [
@@ -30,9 +37,7 @@
         "react-native-google-mobile-ads",
         {
           "androidAppId": "ca-app-pub-1498623250201325~4395450311",
-          "android_app_id": "ca-app-pub-1498623250201325~4395450311",
-          "iosAppId": "ca-app-pub-1498623250201325~4395450311",
-          "ios_app_id": "ca-app-pub-1498623250201325~4395450311"
+          "iosAppId": "ca-app-pub-1498623250201325~4395450311"
         }
       ]
     ],
@@ -48,10 +53,15 @@
       "favicon": "./assets/2.png"
     },
     "extra": {
-      "react-native-google-mobile-ads": {
-        "android_app_id": "ca-app-pub-1498623250201325~4395450311",
-        "ios_app_id": "ca-app-pub-1498623250201325~4395450311"
+      "eas": {
+        "projectId": "fbebdf3d-75b0-4e53-af31-307ef5d54546"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/fbebdf3d-75b0-4e53-af31-307ef5d54546"
     }
   }
 }

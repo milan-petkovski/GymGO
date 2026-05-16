@@ -1,15 +1,15 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity, ScrollView, Image, Animated, Easing, ActivityIndicator, Linking, Modal } from 'react-native';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { ChevronLeft, ShieldCheck, CreditCard, CheckCircle2, Crown, Lock, Clock, Flame, Zap, X } from 'lucide-react-native';
+import { useIsFocused } from '@react-navigation/native';
+import * as Haptics from 'expo-haptics';
 
 const AdBanner = ({ extraClass = '' }) => (
   <View className={`h-16 bg-gray-50 items-center justify-center border border-dashed border-gray-200 rounded-2xl my-4 ${extraClass}`}>
     <Text className="text-gray-300 text-[10px] font-black tracking-[3px] uppercase">Advertisement</Text>
   </View>
 );
-import { View, Text, TouchableOpacity, ScrollView, Image, Animated, Easing, ActivityIndicator, Linking } from 'react-native';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ChevronLeft, ShieldCheck, CreditCard, CheckCircle2, Crown, Lock, Clock, Flame, Zap } from 'lucide-react-native';
-import { useIsFocused } from '@react-navigation/native';
-import * as Haptics from 'expo-haptics';
 
 function FadeInView({ delay = 0, children, style, ready = true, ...props }) {
   const isFocused = useIsFocused();
@@ -56,8 +56,52 @@ export default function CheckoutScreen({ navigation, route }) {
     '24/7 Coach Support',
   ];
 
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+
   return (
     <SafeAreaView className="flex-1 bg-white" edges={['top']}>
+      {/* Payment Processing Modal */}
+      <Modal visible={showPaymentModal} transparent animationType="fade">
+        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.8)', justifyContent: 'center', alignItems: 'center', padding: 30 }}>
+          <View className="bg-white w-full rounded-[40px] p-8 items-center">
+            <View className="bg-green-50 p-6 rounded-full mb-6">
+              <ShieldCheck color="#22C55E" size={50} />
+            </View>
+            <Text className="text-gray-900 text-2xl font-black text-center">Secure Payment</Text>
+            <Text className="text-gray-500 text-center mt-3 leading-6">You are being redirected to our encrypted payment gateway to complete your purchase of {program.title}.</Text>
+            
+            <View className="w-full bg-gray-50 p-5 rounded-3xl my-8 flex-row items-center">
+              <Lock color="#94A3B8" size={18} />
+              <Text className="text-gray-400 font-bold text-xs ml-3">End-to-end SSL Encrypted</Text>
+            </View>
+
+            <TouchableOpacity 
+              className="bg-[#FF5722] w-full py-5 rounded-[24px] items-center"
+              onPress={() => {
+                setShowPaymentModal(false);
+                setIsProcessing(true);
+                setTimeout(() => {
+                  setIsProcessing(false);
+                  Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+                  alert('Transaction Successful!');
+                  navigation.navigate('MainTabs');
+                }, 2000);
+              }}
+            >
+              <Text className="text-white font-black uppercase tracking-widest">Confirm & Pay</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity 
+              className="mt-4 p-4"
+              onPress={() => setShowPaymentModal(false)}
+            >
+              <Text className="text-gray-400 font-bold uppercase tracking-widest text-[10px]">Cancel Transaction</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
       {/* Header — matches TrainerDetail exactly */}
       <View className="px-6 py-4 flex-row items-center justify-between bg-white border-b border-gray-50 z-50 shadow-sm shadow-black/5">
         <TouchableOpacity
@@ -166,12 +210,18 @@ export default function CheckoutScreen({ navigation, route }) {
             <TouchableOpacity
               className="bg-[#FF5722] py-5 rounded-[24px] items-center justify-center flex-row shadow-xl shadow-orange-500/40 active:scale-95"
               onPress={() => {
-                Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-                alert('Opening Secure Payment Portal...');
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                setShowPaymentModal(true);
               }}
             >
-              <CreditCard color="white" size={20} />
-              <Text className="text-white font-black text-base uppercase tracking-widest ml-3">Pay Now</Text>
+              {isProcessing ? (
+                <ActivityIndicator color="white" />
+              ) : (
+                <>
+                  <CreditCard color="white" size={20} />
+                  <Text className="text-white font-black text-base uppercase tracking-widest ml-3">Pay Now</Text>
+                </>
+              )}
             </TouchableOpacity>
 
             <View className="mt-5 flex-row items-center justify-center opacity-30">
