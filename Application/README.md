@@ -27,7 +27,7 @@ Hi! I am Milan, a 19 year old student and web developer from Serbia. GymGo was c
 
 I am committed to keeping my projects 100% free and open-source. If you find GymGo helpful for your workouts and want to support my late night coding sessions, you can buy me a coffee!
 
-💖 <a href="https://paypal.me/milanpetkovski1">Support my work via PayPal</a>
+💖 <a href="https://paypal.me/milanwebportal">Support my work via PayPal</a>
 
 <br>
 
@@ -95,4 +95,4 @@ Author's Website: <a href="https://milanwebportal.com">milanwebportal.com</a>
 
 Contact Email: contact@milanwebportal.com
 
-💖 <a href="https://paypal.me/milanpetkovski1">Support my work via PayPal</a>
+💖 <a href="https://paypal.me/milanwebportal">Support my work via PayPal</a>
