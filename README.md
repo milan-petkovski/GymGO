@@ -178,6 +178,18 @@ GymGO/
 
 ---
 
+## ☕ The Story & Support
+
+Hi! I am Milan, a 20-year-old student and web developer from Serbia. GymGo was created to simplify the way athletes and fitness enthusiasts track workouts and nutrition without ad bloat or subscription paywalls.
+
+If GymGo helps you stay consistent with your training goals and you want to support my late-night coding sessions, you can buy me a coffee!
+
+💖 [Support my work via PayPal](https://paypal.me/milanwebportal)
+
+Every contribution helps keep cloud sync free, maintains database servers, and accelerates new mobile releases. Thank you!
+
+---
+
 ## Author & Support
 
 Developed and maintained by **Milan Petkovski**.

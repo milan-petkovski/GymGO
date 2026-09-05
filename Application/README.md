@@ -23,7 +23,8 @@
 <br>
 
 # ☕ The Story & Support
-Hi! I am Milan, a 19 year old student and web developer from Serbia. GymGo was created to simplify the way we track our fitness progress. Most apps are either too complex or filled with ads; I wanted something fast, beautiful, and functional.
+
+Hi! I am Milan, a 20-year-old student and web developer from Serbia. GymGo was created to simplify the way we track our fitness progress. Most apps are either too complex or filled with ads; I wanted something fast, beautiful, and functional.
 
 I am committed to keeping my projects 100% free and open-source. If you find GymGo helpful for your workouts and want to support my late night coding sessions, you can buy me a coffee!
 
@@ -33,25 +34,27 @@ I am committed to keeping my projects 100% free and open-source. If you find Gym
 
 # 🚀 Key Features
 
-* 🏋️ **Workout Logging**: Easily track sets, reps, and weights for any exercise.
-* 🥗 **Nutrition Tracker**: Log daily meals and monitor calorie intake.
-* 📊 **Progress Analytics**: Visual charts and statistics to monitor your gains over time.
-* 🔐 **Supabase Auth**: Secure user authentication and data synchronization.
-* 📱 **Native Performance**: Built with the New Architecture for maximum speed and fluidity.
-* 🎨 **Modern UI**: Styled with NativeWind (Tailwind CSS) for a premium, consistent look.
-* 🔔 **Smart Notifications**: Reminders for workouts and meal logging.
-* 🏥 **Health Integration**: Ready for Health Connect and Apple Health (Experimental).
+- 🏋️ **Workout Logging**: Easily track sets, reps, and weights for any exercise.
+- 🥗 **Nutrition Tracker**: Log daily meals and monitor calorie intake.
+- 📊 **Progress Analytics**: Visual charts and statistics to monitor your gains over time.
+- 🔐 **Supabase Auth**: Secure user authentication and data synchronization.
+- 📱 **Native Performance**: Built with the New Architecture for maximum speed and fluidity.
+- 🎨 **Modern UI**: Styled with NativeWind (Tailwind CSS) for a premium, consistent look.
+- 🔔 **Smart Notifications**: Reminders for workouts and meal logging.
+- 🏥 **Health Integration**: Ready for Health Connect and Apple Health (Experimental).
 
 <br>
 
 # 🛠️ Installation
 
 **Prerequisites:**
+
 - Node.js (v18+)
 - Expo Go (on your mobile device)
 - Android Studio / Xcode (for local simulation)
 
 **Steps:**
+
 1. Clone the repository:
    ```bash
    git clone https://github.com/milan-petkovski/GymGo.git
@@ -69,6 +72,7 @@ I am committed to keeping my projects 100% free and open-source. If you find Gym
 <br>
 
 # 📦 Android Build (Production)
+
 The production APK is located in:
 `android/app/build/outputs/apk/release/app-release.apk`
 
@@ -89,6 +93,7 @@ The production APK is located in:
 <br>
 
 # 📬 Contact
+
 Project Author: Milan Petkovski (Milan Web Portal)
 
 Author's Website: <a href="https://milanwebportal.com">milanwebportal.com</a>
