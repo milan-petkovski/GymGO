@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://milanwebportal.com">
-    <img src="https://milanwebportal.com/images/Projects/website21.jpg" alt="GymGo Hero" width="600" />
+    <img src="https://milanwebportal.com/images/Projects/gymgo.webp" alt="GymGo Hero" width="600" />
   </a>
   <h1>GymGo - Mobile Fitness Tracker</h1>
   <p>A powerful, modern mobile application for tracking workouts, nutrition, and health metrics.</p>
@@ -83,7 +83,7 @@ The production APK is located in:
 <table align="center" width="100%">
     <tr>
       <td align="center" colspan="2" width="100%">
-        <img src="https://milanwebportal.com/images/Projects/website21.jpg" alt="GymGo UI" />
+        <img src="https://milanwebportal.com/images/Projects/gymgo.webp" alt="GymGo UI" />
         <br />
         <b>Clean & Intuitive Dashboard</b>
       </td>
@@ -101,3 +101,6 @@ Author's Website: <a href="https://milanwebportal.com">milanwebportal.com</a>
 Contact Email: contact@milanwebportal.com
 
 💖 <a href="https://paypal.me/milanwebportal">Support my work via PayPal</a>
+
+---
+<p align="center">Made with ❤️ by <b>Milan Web Portal</b></p>

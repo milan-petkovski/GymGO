@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://gymgo.milanwebportal.com">
-    <img src="https://milanwebportal.com/images/Projects/sgymgo.png" alt="GymGo Hero Banner" width="700" style="border-radius: 12px; box-shadow: 0 12px 36px rgba(0,0,0,0.35);" />
+    <img src="https://milanwebportal.com/images/Projects/showcase/sgymgo.png" alt="GymGo Hero Banner" width="700" style="border-radius: 12px; box-shadow: 0 12px 36px rgba(0,0,0,0.35);" />
   </a>
   <h1>GymGo - Ultimate Fitness Evolution</h1>
   <p><b>A premium, all-in-one fitness ecosystem designed for precision workout tracking and high-performance analytics.</b></p>
@@ -204,3 +204,6 @@ Developed and maintained by **Milan Petkovski**.
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+---
+<p align="center">Made with ❤️ by <b>Milan Web Portal</b></p>
