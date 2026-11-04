@@ -197,7 +197,7 @@ Developed and maintained by **Milan Petkovski**.
 - **Website**: [https://gymgo.milanwebportal.com](https://gymgo.milanwebportal.com)
 - **Main Portal**: [https://milanwebportal.com](https://milanwebportal.com)
 - **Contact Email**: `contact@milanwebportal.com`
-- **Support**: [Support via PayPal](https://paypal.me/milanwebportal)
+- **Support**: 💖 [Support via PayPal](https://paypal.me/milanwebportal)
 
 ---
 

@@ -6,10 +6,10 @@ export default defineConfig({
     minify: 'oxc',
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
-        privacy: resolve(__dirname, 'privacy.html'),
-        support: resolve(__dirname, 'support.html'),
-        terms: resolve(__dirname, 'terms.html'),
+        main: resolve(import.meta.dirname, 'index.html'),
+        privacy: resolve(import.meta.dirname, 'privacy.html'),
+        support: resolve(import.meta.dirname, 'support.html'),
+        terms: resolve(import.meta.dirname, 'terms.html'),
       },
     },
   },
